@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        SupportMapFragment GoogleMaps = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapView);
+        //SupportMapFragment GoogleMaps = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapView);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.button_start_tracking);
         fab.setOnClickListener(new View.OnClickListener() {
