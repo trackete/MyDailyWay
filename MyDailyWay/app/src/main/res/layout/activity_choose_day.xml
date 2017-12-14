@@ -11,5 +11,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="18dp"
-        tools:layout_editor_absoluteY="39dp" />
+        tools:layout_editor_absoluteY="39dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        tools:ignore="MissingConstraints" />
+    <!-- Seline -->
 </android.support.constraint.ConstraintLayout>

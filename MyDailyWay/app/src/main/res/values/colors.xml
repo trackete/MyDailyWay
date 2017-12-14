@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Neue primäre Farben angelegt
+         von Seline-->
+    <color name="colorPrimary">#0c59cf</color>
+    <color name="colorPrimaryLight">#6085ff</color>
+    <color name="colorPrimaryDark">#00319d</color>
+    <color name="colorPrimaryText">#ffffff</color>
+
+    <!-- Alte Farben von Android
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#FF4081</color>-->
 </resources>
