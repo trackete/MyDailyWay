@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.id.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         SupportMapFragment GoogleMaps = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapView);
@@ -86,17 +86,15 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_switch_profile) {
             // Handle the camera action
-        } else if (id == R.id.nav_export)  {
+        } else if (id == R.id.nav_tracks)  {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_favorites) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_calendar) {
 
         } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
 
         }
 
