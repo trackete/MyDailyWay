@@ -27,21 +27,44 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        SupportMapFragment GoogleMaps = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapView);
+        final FloatingActionButton startTracking = (FloatingActionButton) findViewById(R.id.button_start_tracking);
+        final FloatingActionButton stopTracking = (FloatingActionButton) findViewById(R.id.button_stop_tracking);
+        final FloatingActionButton chooseTraffic = (FloatingActionButton) findViewById(R.id.button_choose_traffic);
+        stopTracking.hide();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.button_start_tracking);
-        fab.setOnClickListener(new View.OnClickListener() {
+
+        startTracking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startTracking.hide();
+                stopTracking.show();
+                // hier muss das Tracking rein //
             }
         });
 
+        stopTracking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stopTracking.hide();
+                startTracking.show();
+                // hier muss das abspeichern vom Tracking rein //
+            }
+        });
+
+        chooseTraffic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chooseTraffic.setUseCompatPadding(true);
+
+                // hier muss das auswählen vom Verkehrsmittel rein //
+            }
+        });
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
+             this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
