@@ -1,11 +1,9 @@
 package de.info3.lima1035.mydailyway;
 
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -27,30 +25,14 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        //Markus Linnartz: Erstellen der Buttons//
         final FloatingActionButton startTracking = (FloatingActionButton) findViewById(R.id.button_start_tracking);
         final FloatingActionButton stopTracking = (FloatingActionButton) findViewById(R.id.button_stop_tracking);
         final FloatingActionButton chooseTraffic = (FloatingActionButton) findViewById(R.id.button_choose_traffic);
-        final FloatingActionButton closeChooseTraffic = (FloatingActionButton) findViewById(R.id.button_close_choose_traffic);
-        final FloatingActionButton walk = (FloatingActionButton) findViewById(R.id.button_walk);
-        final FloatingActionButton bike = (FloatingActionButton) findViewById(R.id.button_bike);
-        final FloatingActionButton bus = (FloatingActionButton) findViewById(R.id.button_bus);
-        final FloatingActionButton train = (FloatingActionButton) findViewById(R.id.button_train);
-        final FloatingActionButton car = (FloatingActionButton) findViewById(R.id.button_car);
-
-        //Markus Linnartz: Buttons die erst durch click erscheinen verstecken//
         stopTracking.hide();
-        walk.hide();
-        bike.hide();
-        bus.hide();
-        train.hide();
-        car.hide();
 
 
-        //Markus Linnartz: Beim Play Button Click//
         startTracking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,7 +42,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        //Markus Linnartz: Beim Stop Button Click//
         stopTracking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,41 +51,19 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        //Markus Linnartz: Beim Cliecken des Taffic_Chosse_Buttons//
         chooseTraffic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                chooseTraffic.hide();
-                closeChooseTraffic.show();
-                walk.show();
-                bike.show();
-                bus.show();
-                train.show();
-                car.show();
+                chooseTraffic.setUseCompatPadding(true);
 
-                }
-
-        });
-
-        //Markus Linnartz: Beim Clicken des X-Buttons//
-        closeChooseTraffic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                closeChooseTraffic.hide();
-                chooseTraffic.show();
-                walk.hide();
-                bike.hide();
-                bus.hide();
-                train.hide();
-                car.hide();
-
+                // hier muss das auswählen vom Verkehrsmittel rein //
             }
         });
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-             this, drawer, toolbar, R.string.navigation_drawer_opem, R.string.navigation_drawer_close);
+             this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
          drawer.addDrawerListener(toggle);
         toggle.syncState();
 
