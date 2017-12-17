@@ -10,32 +10,18 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="384dp"
+        android:layout_width="382dp"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         app:popupTheme="@style/AppTheme.PopupOverlay" />
 
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/content_main"
-        android:layout_width="wrap_content"
-        android:layout_height="495dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/button_start_tracking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_media_play" />
@@ -44,13 +30,25 @@
         android:id="@+id/button_choose_traffic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
         android:clickable="true"
         app:elevation="?android:attr/scrollbarSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
+        app:srcCompat="@drawable/ic_action_train" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/button_close_choose_traffic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:clickable="true"
+        app:elevation="?android:attr/scrollbarSize"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -63,11 +61,56 @@
         android:id="@+id/button_stop_tracking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="24dp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/checkbox_off_background" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/button_walk"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:clickable="true"
+        app:srcCompat="@drawable/ic_action_people"
+        tools:layout_editor_absoluteX="60dp"
+        tools:layout_editor_absoluteY="520dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/button_bike"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:clickable="true"
+        app:srcCompat="@drawable/ic_action_bike"
+        tools:layout_editor_absoluteX="95dp"
+        tools:layout_editor_absoluteY="520dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/button_bus"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:clickable="true"
+        app:srcCompat="@drawable/ic_action_bus"
+        tools:layout_editor_absoluteX="130dp"
+        tools:layout_editor_absoluteY="520dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/button_train"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:clickable="true"
+        app:srcCompat="@drawable/ic_action_train"
+        tools:layout_editor_absoluteX="165dp"
+        tools:layout_editor_absoluteY="520dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/button_car"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:clickable="true"
+        app:srcCompat="@drawable/ic_action_car"
+        tools:layout_editor_absoluteX="200dp"
+        tools:layout_editor_absoluteY="520dp" />
 
 </android.support.constraint.ConstraintLayout>
