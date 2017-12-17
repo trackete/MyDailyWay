@@ -30,9 +30,15 @@ public class MainActivity extends AppCompatActivity
         final FloatingActionButton startTracking = (FloatingActionButton) findViewById(R.id.button_start_tracking);
         final FloatingActionButton stopTracking = (FloatingActionButton) findViewById(R.id.button_stop_tracking);
         final FloatingActionButton chooseTraffic = (FloatingActionButton) findViewById(R.id.button_choose_traffic);
+
+        //Warum wieder gestoppt? SJ
         stopTracking.hide();
 
 
+/*On Click Listener für den Start Button
+wenn Button gedrückt -> versteckt Startbutton und Stoppbuttonn kommt
+JS
+ */
         startTracking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,7 +47,10 @@ public class MainActivity extends AppCompatActivity
                 // hier muss das Tracking rein //
             }
         });
-
+/*on click listener
+wenn stopp -> start eingeblendet und speicherdialog koommt zum vorschein
+JS
+ */
         stopTracking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,7 +59,9 @@ public class MainActivity extends AppCompatActivity
                 // hier muss das abspeichern vom Tracking rein //
             }
         });
-
+/*
+!!Hier fehlt noch die Auswählleiste für die V-Mittel JS
+ */
         chooseTraffic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
