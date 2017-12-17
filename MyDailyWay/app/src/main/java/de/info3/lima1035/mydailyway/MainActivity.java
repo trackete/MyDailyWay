@@ -21,6 +21,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    //Markus Linnartz: Aktuelle Auswahl des Verkehrsmittels: 1=Fußgänger; 2=Fahrrad; 3=Bus; 4=Zug; 5=Auto//
+    public static int chooseTraffic = 4;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,9 +33,16 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         //Markus Linnartz: Einfügen der FloatingActionsButtons//
+        //Markus Linnartz: Jeweils ein Button pro Verkehrsmittel, wobei nur der Button mit dem Symbol des aktuell ausgewählten Verkehrsmittels unten links angezeigt wird)//
+        //Markus Linnartz: Jeweils ein Button zur Auswahl der verschiedenen Verkehrsmittel die nach dem Choose-Button erscheinen) und ein Button der diese Auswahl schließt//
+        //Markus Linnartz: Ein Start Tracking und ein Stop Tracking Button)//
         final FloatingActionButton startTracking = (FloatingActionButton) findViewById(R.id.button_start_tracking);
         final FloatingActionButton stopTracking = (FloatingActionButton) findViewById(R.id.button_stop_tracking);
-        final FloatingActionButton chooseTraffic = (FloatingActionButton) findViewById(R.id.button_choose_traffic);
+        final FloatingActionButton chooseTrafficWalk = (FloatingActionButton) findViewById(R.id.button_choose_traffic_walk);
+        final FloatingActionButton chooseTrafficBike = (FloatingActionButton) findViewById(R.id.button_choose_traffic_bike);
+        final FloatingActionButton chooseTrafficBus = (FloatingActionButton) findViewById(R.id.button_choose_traffic_bus);
+        final FloatingActionButton chooseTrafficTrain = (FloatingActionButton) findViewById(R.id.button_choose_traffic_train);
+        final FloatingActionButton chooseTrafficCar = (FloatingActionButton) findViewById(R.id.button_choose_traffic_car);
         final FloatingActionButton closeChooseTraffic = (FloatingActionButton) findViewById(R.id.button_close_choose_traffic);
         final FloatingActionButton walk = (FloatingActionButton) findViewById(R.id.button_walk);
         final FloatingActionButton bike = (FloatingActionButton) findViewById(R.id.button_bike);
@@ -43,55 +54,199 @@ public class MainActivity extends AppCompatActivity
         //Markus Linnartz: Verstecken der Buttons die erst später angezeigt werden//
         stopTracking.hide();
         closeChooseTraffic.hide();
+        chooseTrafficBike.hide();
+        chooseTrafficBus.hide();
+        chooseTrafficWalk.hide();
+        chooseTrafficCar.hide();
         walk.hide();
         bike.hide();
         bus.hide();
         train.hide();
         car.hide();
 
-
-        //Markus Linnartz: Bei Click des Play-Buttons//
+        //Markus Linnartz: Bei Click des Play-Buttons (Starten des Trackings)//
         startTracking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startTracking.hide();
                 stopTracking.show();
-                // hier muss das Tracking rein //
             }
         });
 
-        //Markus Linnartz: Bei Click des Stop-Button/
+        //Markus Linnartz: Bei Click des Stop-Button (Stoppen des Trackings)//
         stopTracking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 stopTracking.hide();
                 startTracking.show();
-                // hier muss das abspeichern vom Tracking rein //
             }
         });
 
-        //Markus Linnartz: Bei Click des Choose-Traffic-Buttons/
-        chooseTraffic.setOnClickListener(new View.OnClickListener() {
+        //Markus Linnartz: Bei Click des Choose-Traffic-Buttons (Fußgängersymbol)//
+        chooseTrafficWalk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                chooseTraffic.hide();
+                chooseTrafficWalk.hide();
                 closeChooseTraffic.show();
                 walk.show();
                 bike.show();
                 bus.show();
                 train.show();
                 car.show();
-
-                // hier muss das auswählen vom Verkehrsmittel rein //
             }
         });
 
-        //Markus Linnartz: Bei Click des Close-Choose-Traffic-Buttons//
+        //Markus Linnartz: Bei Click des Choose-Traffic-Buttons (Fahrradsymbol)/
+        chooseTrafficBike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chooseTrafficBike.hide();
+                closeChooseTraffic.show();
+                walk.show();
+                bike.show();
+                bus.show();
+                train.show();
+                car.show();
+            }
+        });
+
+        //Markus Linnartz: Bei Click des Choose-Traffic-Buttons (Bussymbol)/
+        chooseTrafficBus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chooseTrafficBus.hide();
+                closeChooseTraffic.show();
+                walk.show();
+                bike.show();
+                bus.show();
+                train.show();
+                car.show();
+            }
+        });
+
+        //Markus Linnartz: Bei Click des Choose-Traffic-Buttons (Zugsymbol)/
+        chooseTrafficTrain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chooseTrafficTrain.hide();
+                closeChooseTraffic.show();
+                walk.show();
+                bike.show();
+                bus.show();
+                train.show();
+                car.show();
+            }
+        });
+
+        //Markus Linnartz: Bei Click des Choose-Traffic-Buttons (Autosymbol)/
+        chooseTrafficCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chooseTrafficCar.hide();
+                closeChooseTraffic.show();
+                walk.show();
+                bike.show();
+                bus.show();
+                train.show();
+                car.show();
+            }
+        });
+
+        //Markus Linnartz: Bei Click des Close-Choose-Traffic-Buttons (X-Symbol)//
         closeChooseTraffic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 closeChooseTraffic.hide();
-                chooseTraffic.show();
+                walk.hide();
+                bike.hide();
+                bus.hide();
+                train.hide();
+                car.hide();
+                if (chooseTraffic == 1) {
+                    chooseTrafficWalk.show();
+                }
+                else if (chooseTraffic == 2){
+                    chooseTrafficBike.show();
+                }
+                else if (chooseTraffic == 3) {
+                    chooseTrafficBus.show();
+                }
+                else if (chooseTraffic == 4) {
+                    chooseTrafficTrain.show();
+                }
+                else if (chooseTraffic == 5) {
+                    chooseTrafficCar.show();
+                }
+            }
+        });
+
+        // Markus Linnartz: Bei Click des Taffic-Auswahl-Buttons (Fusßgänger)//
+        walk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chooseTraffic = 1;
+                closeChooseTraffic.hide();
+                chooseTrafficWalk.show();
+                walk.hide();
+                bike.hide();
+                bus.hide();
+                train.hide();
+                car.hide();
+            }
+        });
+
+        // Markus Linnartz: Bei Click des Taffic-Auswahl-Buttons (Fahrrad)//
+        bike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chooseTraffic = 2;
+                closeChooseTraffic.hide();
+                chooseTrafficBike.show();
+                walk.hide();
+                bike.hide();
+                bus.hide();
+                train.hide();
+                car.hide();
+            }
+        });
+
+        // Markus Linnartz: Bei Click des Taffic-Auswahl-Buttons (Bus)//
+        bus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chooseTraffic = 3;
+                closeChooseTraffic.hide();
+                chooseTrafficBus.show();
+                walk.hide();
+                bike.hide();
+                bus.hide();
+                train.hide();
+                car.hide();
+            }
+        });
+
+        // Markus Linnartz: Bei Click des Taffic-Auswahl-Buttons (Zug)//
+        train.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chooseTraffic = 4;
+                closeChooseTraffic.hide();
+                chooseTrafficTrain.show();
+                walk.hide();
+                bike.hide();
+                bus.hide();
+                train.hide();
+                car.hide();
+            }
+        });
+
+        // Markus Linnartz: Bei Click des Taffic-Auswahl-Buttons (Auto)//
+        car.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chooseTraffic = 5;
+                closeChooseTraffic.hide();
+                chooseTrafficCar.show();
                 walk.hide();
                 bike.hide();
                 bus.hide();
@@ -110,6 +265,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
 
     @Override
     public void onBackPressed() {
