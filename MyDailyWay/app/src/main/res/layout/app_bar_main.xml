@@ -12,7 +12,11 @@
         android:id="@+id/toolbar"
         android:layout_width="382dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
         android:background="?attr/colorPrimary"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/AppTheme.PopupOverlay" />
 
 
@@ -21,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_media_play" />
@@ -62,7 +66,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="16dp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,47 +74,62 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/button_walk"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="5dp"
         android:clickable="true"
-        app:srcCompat="@drawable/ic_action_people"
-        tools:layout_editor_absoluteX="60dp"
-        tools:layout_editor_absoluteY="520dp" />
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_close_choose_traffic"
+        app:srcCompat="@drawable/ic_action_people" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/button_bike"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="5dp"
         android:clickable="true"
-        app:srcCompat="@drawable/ic_action_bike"
-        tools:layout_editor_absoluteX="95dp"
-        tools:layout_editor_absoluteY="520dp" />
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_walk"
+        app:srcCompat="@drawable/ic_action_bike" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/button_bus"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="5dp"
         android:clickable="true"
-        app:srcCompat="@drawable/ic_action_bus"
-        tools:layout_editor_absoluteX="130dp"
-        tools:layout_editor_absoluteY="520dp" />
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_bike"
+        app:srcCompat="@drawable/ic_action_bus" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/button_train"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="5dp"
         android:clickable="true"
-        app:srcCompat="@drawable/ic_action_train"
-        tools:layout_editor_absoluteX="165dp"
-        tools:layout_editor_absoluteY="520dp" />
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_bus"
+        app:srcCompat="@drawable/ic_action_train" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/button_car"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="5dp"
         android:clickable="true"
-        app:srcCompat="@drawable/ic_action_car"
-        tools:layout_editor_absoluteX="200dp"
-        tools:layout_editor_absoluteY="520dp" />
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_train"
+        app:srcCompat="@drawable/ic_action_car" />
 
 </android.support.constraint.ConstraintLayout>

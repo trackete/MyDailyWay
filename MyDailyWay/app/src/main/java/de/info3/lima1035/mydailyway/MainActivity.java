@@ -27,12 +27,30 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //Markus Linnartz: Einfügen der FloatingActionsButtons//
         final FloatingActionButton startTracking = (FloatingActionButton) findViewById(R.id.button_start_tracking);
         final FloatingActionButton stopTracking = (FloatingActionButton) findViewById(R.id.button_stop_tracking);
         final FloatingActionButton chooseTraffic = (FloatingActionButton) findViewById(R.id.button_choose_traffic);
+        final FloatingActionButton closeChooseTraffic = (FloatingActionButton) findViewById(R.id.button_close_choose_traffic);
+        final FloatingActionButton walk = (FloatingActionButton) findViewById(R.id.button_walk);
+        final FloatingActionButton bike = (FloatingActionButton) findViewById(R.id.button_bike);
+        final FloatingActionButton bus = (FloatingActionButton) findViewById(R.id.button_bus);
+        final FloatingActionButton train = (FloatingActionButton) findViewById(R.id.button_train);
+        final FloatingActionButton car = (FloatingActionButton) findViewById(R.id.button_car);
+
+
+        //Markus Linnartz: Verstecken der Buttons die erst später angezeigt werden//
         stopTracking.hide();
+        closeChooseTraffic.hide();
+        walk.hide();
+        bike.hide();
+        bus.hide();
+        train.hide();
+        car.hide();
 
 
+        //Markus Linnartz: Bei Click des Play-Buttons//
         startTracking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,6 +60,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        //Markus Linnartz: Bei Click des Stop-Button/
         stopTracking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,12 +70,33 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        //Markus Linnartz: Bei Click des Choose-Traffic-Buttons/
         chooseTraffic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                chooseTraffic.setUseCompatPadding(true);
+                chooseTraffic.hide();
+                closeChooseTraffic.show();
+                walk.show();
+                bike.show();
+                bus.show();
+                train.show();
+                car.show();
 
                 // hier muss das auswählen vom Verkehrsmittel rein //
+            }
+        });
+
+        //Markus Linnartz: Bei Click des Close-Choose-Traffic-Buttons//
+        closeChooseTraffic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                closeChooseTraffic.hide();
+                chooseTraffic.show();
+                walk.hide();
+                bike.hide();
+                bus.hide();
+                train.hide();
+                car.hide();
             }
         });
 
