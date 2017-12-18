@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity
     public static int chooseTraffic = 4;
     private GoogleMap GoogleMap;
 
+
     public void onMapReady(GoogleMap googleMap) {
         GoogleMap = googleMap;
 
