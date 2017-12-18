@@ -7,6 +7,8 @@
     <color name="colorPrimaryDark">#00319d</color>
     <color name="colorPrimaryText">#ffffff</color>
 
+    <color name="black_overlay">#66000000</color>
+
     <!-- Alte Farben von Android
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>

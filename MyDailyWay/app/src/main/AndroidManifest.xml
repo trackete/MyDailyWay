@@ -21,11 +21,10 @@
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
         </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -39,7 +38,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_api_key" />
 
-        <activity android:name=".TrackingList"></activity>
+        <activity android:name=".TrackingList" />
+        <activity android:name=".StartActivity"></activity>
     </application>
 
 </manifest>
