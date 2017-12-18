@@ -32,15 +32,6 @@ public class MainActivity extends AppCompatActivity
     private GoogleMap GoogleMap;
 
 
-    public void onMapReady(GoogleMap googleMap) {
-        GoogleMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        GoogleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        GoogleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +39,8 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        //Seline Winkelmann: GoogleMaps implementiern (Code:AIzaSyCxPveUpfQr6cvTTdwYjbnkRyeieIJsmmY)
         MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
