@@ -39,7 +39,6 @@
             android:value="@string/google_maps_api_key" />
 
         <activity android:name=".TrackingList" />
-        <activity android:name=".StartActivity"></activity>
     </application>
 
 </manifest>
