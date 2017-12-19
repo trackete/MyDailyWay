@@ -4,6 +4,6 @@
     android:viewportHeight="24.0"
     android:viewportWidth="24.0">
     <path
-        android:fillColor="#0c59ff"
+        android:fillColor="#0c59cf"
         android:pathData="@drawable/ic_event_note_black_24dp" />
 </vector>
