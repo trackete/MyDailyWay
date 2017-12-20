@@ -3,6 +3,7 @@ package de.info3.lima1035.mydailyway;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -18,6 +19,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -31,8 +34,13 @@ public class MainActivity extends AppCompatActivity
     //Markus Linnartz: Aktuelle Auswahl des Verkehrsmittels: 1=Fußgänger; 2=Fahrrad; 3=Bus; 4=Zug; 5=Auto//
     public static int chooseTraffic = 4;
     private GoogleMap GoogleMap;
+
+    // Julia Fassbinder und Seline Winkelmann: Definieren von Parametern
     private final int MY_PERMISSION_RWQUEST_FINE_LOCATION = 123;
     private final String TAG = "TAG";
+    public int longitude;   //Längengrad
+    public int latitude;    //Breitengrad
+    private FusedLocationProviderClient mFusedLocationClient;
 
 
 
@@ -71,6 +79,10 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+
+
 
         //Seline Winkelmann: GoogleMaps implementiern (Code:AIzaSyCxPveUpfQr6cvTTdwYjbnkRyeieIJsmmY)
         MapFragment mapFragment = (MapFragment) getFragmentManager()
@@ -80,8 +92,16 @@ public class MainActivity extends AppCompatActivity
             public void onMapReady(GoogleMap googleMap) {
                 GoogleMap = googleMap;
 
+
+
+
+
+
+
+
+
                 // Add a marker in Sydney and move the camera
-                LatLng sydney = new LatLng(-34, 151);
+                LatLng sydney = new LatLng(latitude, longitude );
                 GoogleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
                 GoogleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
             }
