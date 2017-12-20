@@ -1,16 +1,21 @@
 package de.info3.lima1035.mydailyway;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
+import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -22,17 +27,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -40,17 +42,11 @@ public class MainActivity extends AppCompatActivity
     //Markus Linnartz: Aktuelle Auswahl des Verkehrsmittels: 1=Fußgänger; 2=Fahrrad; 3=Bus; 4=Zug; 5=Auto//
     public static int chooseTraffic = 4;
     private GoogleMap GoogleMap;
-
-    // Julia Fassbinder und Seline Winkelmann: Definieren von Parametern
     private final int MY_PERMISSION_RWQUEST_FINE_LOCATION = 123;
     private final String TAG = "TAG";
-    public int longitude;   //Längengrad
-    public int latitude;    //Breitengrad
-    private FusedLocationProviderClient mFusedLocationClient;
-    private final String REQUESTING_LOCATION_UPDATES_KEY = "REQUESTING_LOCATION_UPDATES_KEY";
-    private boolean mRequestingLocationUpdates;
-    public LocationCallback mLocationCallback;
-    public LocationRequest mLocationRequest;
+    private final String REQUESTING_LOCATIONS_UPDATE_KEY = "";
+
+
 
 
     @Override
@@ -62,7 +58,8 @@ public class MainActivity extends AppCompatActivity
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //start Location updates
                     Log.d(TAG, "Permissions Granted");
-                } else {
+                }
+                else {
                     Log.d(TAG, "Permissons denied");
                     //Show an explantation to user *asynchronously*
                     AlertDialog.Builder ADbuilder = new AlertDialog.Builder(this);
@@ -70,15 +67,22 @@ public class MainActivity extends AppCompatActivity
                             .setTitle("Important permission required")
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_RWQUEST_FINE_LOCATION);
+                                    ActivityCompat.requestPermissions(MainActivity.this, new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_RWQUEST_FINE_LOCATION);
 
                                 }
                             });
+                    ADbuilder.create();
+                    ADbuilder.show();
+
                 }
             }
         }
     }
 
+
+    public void stopLocationUpdates() {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,27 +90,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null) {
-
-                }
-            }
-        });
-
 
 
 
@@ -118,9 +101,8 @@ public class MainActivity extends AppCompatActivity
             public void onMapReady(GoogleMap googleMap) {
                 GoogleMap = googleMap;
 
-
                 // Add a marker in Sydney and move the camera
-                LatLng sydney = new LatLng(latitude, longitude);
+                LatLng sydney = new LatLng(-34, 151);
                 GoogleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
                 GoogleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
             }
@@ -158,7 +140,6 @@ public class MainActivity extends AppCompatActivity
         bus.hide();
         train.hide();
         car.hide();
-
 
         //Markus Linnartz: Bei Click des Play-Buttons (Starten des Trackings)//
         startTracking.setOnClickListener(new View.OnClickListener() {
@@ -260,13 +241,17 @@ public class MainActivity extends AppCompatActivity
                 car.hide();
                 if (chooseTraffic == 1) {
                     chooseTrafficWalk.show();
-                } else if (chooseTraffic == 2) {
+                }
+                else if (chooseTraffic == 2){
                     chooseTrafficBike.show();
-                } else if (chooseTraffic == 3) {
+                }
+                else if (chooseTraffic == 3) {
                     chooseTrafficBus.show();
-                } else if (chooseTraffic == 4) {
+                }
+                else if (chooseTraffic == 4) {
                     chooseTrafficTrain.show();
-                } else if (chooseTraffic == 5) {
+                }
+                else if (chooseTraffic == 5) {
                     chooseTrafficCar.show();
                 }
             }
@@ -350,24 +335,12 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
+             this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        updateValuesFromBundle(savedInstanceState);
-    }
-
-    private void updateValuesFromBundle(Bundle savedInstanceState) {
-        if(savedInstanceState.keySet().contains(REQUESTING_LOCATION_UPDATES_KEY)){
-            mRequestingLocationUpdates = savedInstanceState.getBoolean(REQUESTING_LOCATION_UPDATES_KEY);
-        }
-        updateUI();
-    }
-
-    private void updateUI() {
     }
 
     @Override
@@ -410,7 +383,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_change_profile) {
             // Handle the camera action
-        } else if (id == R.id.nav_tracks) {
+        } else if (id == R.id.nav_tracks)  {
 
         } else if (id == R.id.nav_favorites) {
 
@@ -426,50 +399,4 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        if (mRequestingLocationUpdates) {
-            startLocationUpdates();
-        }
-
-    }
-
-    private void startLocationUpdates() {
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-
-
-
-        mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        stopLocationUpdates();
-    }
-    private void stopLocationUpdates() {
-
-        mFusedLocationClient.removeLocationUpdates(mLocationCallback);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putBoolean(REQUESTING_LOCATION_UPDATES_KEY, mRequestingLocationUpdates);
-        super.onSaveInstanceState(outState);
-
-    }
 }
-
-
