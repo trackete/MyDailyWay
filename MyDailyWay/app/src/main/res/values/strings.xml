@@ -13,12 +13,12 @@
     <string name="title_activity_start">StartActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="Calendar">Kalender</string>
-    <string name="Favorites">Favoriten</string>
-    <string name="Share">Share</string>
-    <string name="ChangeProfile">Profil wechseln</string>
-    <string name="TrackList">Tracks</string>
-    <string name="Infos">Hilfe und Einstellungen</string>
-    <string name="Impressum">Impressum</string>
+    <string name="nav_calendar">Kalender</string>
+    <string name="nav_favorites">Favoriten</string>
+    <string name="nav_share">Share</string>
+    <string name="nav_changeProfile">Profil wechseln</string>
+    <string name="nav_trackList">Tracks</string>
+    <string name="nav_infos">Hilfe und Einstellungen</string>
+    <string name="nav_impressum">Impressum</string>
 </resources>
 

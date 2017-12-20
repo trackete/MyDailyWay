@@ -3,41 +3,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <item android:title="@string/TrackList">
+    <item android:title="@string/nav_trackList">
         <menu>
             <item
                 android:id="@+id/nav_tracks"
                 android:icon="@drawable/ic_beenhere_black_24dp"
-                android:title="@string/TrackList" />
+                android:title="@string/nav_trackList" />
 
             <item
                 android:id="@+id/nav_calendar"
                 android:icon="@drawable/ic_event_note_black_24dp"
-                android:title="@string/Calendar" />
+                android:title="@string/nav_calendar" />
 
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="@string/Share" />
+                android:title="@string/nav_share" />
 
             <item
                 android:id="@+id/nav_favorites"
                 android:icon="@drawable/ic_star_border_black_24dp"
-                android:title="@string/Favorites" />
+                android:title="@string/nav_favorites" />
         </menu>
     </item>
 
-    <item android:title="@string/Infos">
+    <item android:title="@string/nav_infos">
         <menu>
         <item
             android:id="@+id/nav_change_profile"
             android:icon="@drawable/ic_people_black_24dp"
-            android:title="@string/ChangeProfile" />
+            android:title="@string/nav_changeProfile" />
 
             <item
                 android:id="@+id/nav_impressum"
                 android:icon="@drawable/ic_filter_list_black_24dp"
-                android:title="@string/Impressum" />
+                android:title="@string/nav_impressum" />
         </menu>
 
     </item>
