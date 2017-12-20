@@ -1,15 +1,22 @@
 package de.info3.lima1035.mydailyway;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -29,15 +36,41 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.security.Permission;
-
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     //Markus Linnartz: Aktuelle Auswahl des Verkehrsmittels: 1=Fußgänger; 2=Fahrrad; 3=Bus; 4=Zug; 5=Auto//
     public static int chooseTraffic = 4;
     private GoogleMap GoogleMap;
+    private final int MY_PERMISSION_RWQUEST_FINE_LOCATION = 123;
+    private final String TAG = "TAG";
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case MY_PERMISSION_RWQUEST_FINE_LOCATION: {
+                // if request is cancelled, the result rays are empty
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //start Location updates
+                    Log.d(TAG, "Permissions Granted");
+                }
+                else {
+                    Log.d(TAG, "Permissons denied");
+                    //Show an explantation to user *asynchronously*
+                    AlertDialog.Builder ADbuilder = new AlertDialog.Builder(this);
+                    ADbuilder.setMessage("This permission is important for the App to function properly.")
+                            .setTitle("Important permission required")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    ActivityCompat.requestPermissions(MainActivity.this, new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_RWQUEST_FINE_LOCATION);
+
+                                }
+                            });
+                }
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,93 +80,9 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-
-        //Seline Winkelmann: GoogleMaps implementieren (Code:AIzaSyCxPveUpfQr6cvTTdwYjbnkRyeieIJsmmY)
+        //Seline Winkelmann: GoogleMaps implementiern (Code:AIzaSyCxPveUpfQr6cvTTdwYjbnkRyeieIJsmmY)
         MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
-
-        //Seline Winkelmann: Abfragen ob App Erlaubnis hat auf den Standort zuzugreifen
-        int permissionCheck = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION);
-        // Here, thisActivity is the current activity
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-
-            } else {
-
-                // No explanation needed, we can request the permission.
-
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        permissionCheck);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
-            }
-        }
-       /* @Override
-        public void onRequestPermissionsResult(int requestCode, String permission[], int[] grantResults) {
-            if (requestCode == MY_LOCATION_REQUEST_CODE) {
-                if (permissions.length == 1 &&
-                        permissions[0] == Manifest.permission.ACCESS_FINE_LOCATION &&
-                        grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    GoogleMap.setMyLocationEnabled(true);
-                } else {
-                    // Permission was denied. Display an error message.
-                }
-            }*/
-
-
-        @Override
-        public void onRequestPermissionsResult(int requestCode,  @NonNull String[] permissions, @NonNull int[] grantResults){
-            switch (requestCode) {
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-                case MYPERMISSIONS_REQUEST_LOCAtION: {
-                    // If request is cancelled, the result arrays are empty.
-                    if (grantResults.length > 0
-                            && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                        // permission was granted, yay! Do the
-                        // contacts-related task you need to do.
-
-                    } else {
-
-                        // permission denied, boo! Disable the
-                        // functionality that depends on this permission.
-                    }
-                    return;
-                }
-
-                // other 'case' lines to check for other
-                // permissions this app might request
-            }
-        }
-
-
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-
-
-            GoogleMap.setMyLocationEnabled(true);
-        } else {
-            // Show rationale and request permission.
-        }
-
-
-
-
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
@@ -143,11 +92,8 @@ public class MainActivity extends AppCompatActivity
                 LatLng sydney = new LatLng(-34, 151);
                 GoogleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
                 GoogleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
             }
         });
-
-
 
 
         //Markus Linnartz: Einfügen der FloatingActionsButtons//
@@ -422,17 +368,17 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_change_profile) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery)  {
+        } else if (id == R.id.nav_tracks)  {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_favorites) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_calendar) {
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_impressum) {
 
         }
 
