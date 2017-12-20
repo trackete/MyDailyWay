@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity
     private final int MY_PERMISSION_RWQUEST_FINE_LOCATION = 123;
     private final String TAG = "TAG";
 
+    // hallo seline
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -71,6 +73,7 @@ public class MainActivity extends AppCompatActivity
             }
         }
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +130,8 @@ public class MainActivity extends AppCompatActivity
         bus.hide();
         train.hide();
         car.hide();
+
+
 
         //Markus Linnartz: Bei Click des Play-Buttons (Starten des Trackings)//
         startTracking.setOnClickListener(new View.OnClickListener() {
@@ -386,4 +391,4 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-}
+            }
