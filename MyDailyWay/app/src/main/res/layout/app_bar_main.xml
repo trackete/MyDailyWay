@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinatorLayout"
@@ -195,4 +195,4 @@
         map:layout_constraintTop_toBottomOf="@+id/toolbar"
         tools:context="de.info3.lima1035.mydailyway.MapsActivity" />
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
