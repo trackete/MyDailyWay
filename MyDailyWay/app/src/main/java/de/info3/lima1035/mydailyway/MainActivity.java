@@ -1,14 +1,13 @@
 package de.info3.lima1035.mydailyway;
 
-import android.app.FragmentTransaction;
-import android.content.Context;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,9 +21,7 @@ import android.view.MenuItem;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -34,12 +31,43 @@ public class MainActivity extends AppCompatActivity
     //Markus Linnartz: Aktuelle Auswahl des Verkehrsmittels: 1=Fußgänger; 2=Fahrrad; 3=Bus; 4=Zug; 5=Auto//
     public static int chooseTraffic = 4;
     private GoogleMap GoogleMap;
+    private final int MY_PERMISSION_RWQUEST_FINE_LOCATION = 123;
+    private final String TAG = "TAG";
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case MY_PERMISSION_RWQUEST_FINE_LOCATION: {
+                // if request is cancelled, the result rays are empty
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //start Location updates
+                    Log.d(TAG, "Permissions Granted");
+                }
+                else {
+                    Log.d(TAG, "Permissons denied");
+                    //Show an explantation to user *asynchronously*
+                    AlertDialog.Builder ADbuilder = new AlertDialog.Builder(this);
+                    ADbuilder.setMessage("This permission is important for the App to function properly.")
+                            .setTitle("Important permission required")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    ActivityCompat.requestPermissions(MainActivity.this, new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_RWQUEST_FINE_LOCATION);
+
+                                }
+                            });
+                }
+            }
+        }
+    }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.id.activity_main);
+        setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -58,6 +86,7 @@ public class MainActivity extends AppCompatActivity
                 GoogleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
             }
         });
+
 
         //Markus Linnartz: Einfügen der FloatingActionsButtons//
         //Markus Linnartz: Jeweils ein Button pro Verkehrsmittel, wobei nur der Button mit dem Symbol des aktuell ausgewählten Verkehrsmittels unten links angezeigt wird)//
@@ -90,6 +119,8 @@ public class MainActivity extends AppCompatActivity
         bus.hide();
         train.hide();
         car.hide();
+
+
 
         //Markus Linnartz: Bei Click des Play-Buttons (Starten des Trackings)//
         startTracking.setOnClickListener(new View.OnClickListener() {
@@ -331,7 +362,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_switch_profile) {
+        if (id == R.id.nav_change_profile) {
             // Handle the camera action
         } else if (id == R.id.nav_tracks)  {
 
@@ -341,10 +372,12 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
 
+        } else if (id == R.id.nav_impressum) {
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-}
+            }
