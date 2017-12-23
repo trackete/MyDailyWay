@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity
     private GoogleMap GoogleMap;
 
     // Julia Fassbinder und Seline Winkelmann: Definieren von Parametern
-    private final int MY_PERMISSION_RWQUEST_FINE_LOCATION = 123;
+    private final int MY_PERMISSION_REQUEST_FINE_LOCATION = 123;
     private final String TAG = "TAG";
     public int longitude;   //Längengrad
     public int latitude;    //Breitengrad
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
-            case MY_PERMISSION_RWQUEST_FINE_LOCATION: {
+            case MY_PERMISSION_REQUEST_FINE_LOCATION: {
                 // if request is cancelled, the result rays are empty
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //start Location updates
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity
                             .setTitle("Important permission required")
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_RWQUEST_FINE_LOCATION);
+                                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_REQUEST_FINE_LOCATION);
 
                                 }
                             });
@@ -448,7 +448,6 @@ public class MainActivity extends AppCompatActivity
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-
 
 
         mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null);
