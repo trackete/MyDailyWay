@@ -288,15 +288,15 @@ public class MainActivity extends AppCompatActivity
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+       // GoogleMap.setMyLocationEnabled(true);
 
-        mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+      /** mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
                 if (location != null) {
-
                 }
             }
-        });
+        }); */
 
 
         //Seline Winkelmann: GoogleMaps implementiern (Code:AIzaSyCxPveUpfQr6cvTTdwYjbnkRyeieIJsmmY)
@@ -308,7 +308,7 @@ public class MainActivity extends AppCompatActivity
                 GoogleMap = googleMap;
 
 
-                // Add a marker in Sydney and move the camera
+                //Add a marker in Sydney and move the camera
                 LatLng sydney = new LatLng(latitude, longitude);
                 GoogleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
                 GoogleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
@@ -324,7 +324,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        updateValuesFromBundle(savedInstanceState);
+        //updateValuesFromBundle(savedInstanceState);
     }
 
     private void updateValuesFromBundle(Bundle savedInstanceState) {
@@ -357,9 +357,10 @@ public class MainActivity extends AppCompatActivity
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+
         mFusedLocationClient.requestLocationUpdates(mLocationRequest,
-                mLocationCallback,
-                null /* Looper */);
+               mLocationCallback,
+               null /* Looper */);
     }
 
     //David: Standort Updates anhalten
@@ -434,6 +435,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -461,5 +463,5 @@ public class MainActivity extends AppCompatActivity
             }
         }
     }
-
 }
+
