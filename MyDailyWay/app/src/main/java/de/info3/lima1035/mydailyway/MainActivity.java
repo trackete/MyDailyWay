@@ -288,6 +288,9 @@ public class MainActivity extends AppCompatActivity
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+
+        // Das hier auskommentierte bruacht man für den Standort aber daduch stürzt die App ab:
+
        // GoogleMap.setMyLocationEnabled(true);
 
       /** mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
