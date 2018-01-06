@@ -60,44 +60,6 @@ public class MainActivity extends AppCompatActivity
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null) {
-
-                }
-            }
-        });
-
-
-        //Seline Winkelmann: GoogleMaps implementiern (Code:AIzaSyCxPveUpfQr6cvTTdwYjbnkRyeieIJsmmY)
-        MapFragment mapFragment = (MapFragment) getFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap googleMap) {
-                GoogleMap = googleMap;
-
-
-                // Add a marker in Sydney and move the camera
-                LatLng sydney = new LatLng(latitude, longitude);
-                GoogleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-                GoogleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-            }
-
-        });
-
-
         //Markus Linnartz: Einfügen der FloatingActionsButtons//
         //Markus Linnartz: Jeweils ein Button pro Verkehrsmittel, wobei nur der Button mit dem Symbol des aktuell ausgewählten Verkehrsmittels unten links angezeigt wird)//
         //Markus Linnartz: Jeweils ein Button zur Auswahl der verschiedenen Verkehrsmittel die nach dem Choose-Button erscheinen) und ein Button der diese Auswahl schließt//
@@ -116,7 +78,6 @@ public class MainActivity extends AppCompatActivity
         final FloatingActionButton train = (FloatingActionButton) findViewById(R.id.button_train);
         final FloatingActionButton car = (FloatingActionButton) findViewById(R.id.button_car);
 
-
         //Markus Linnartz: Verstecken der Buttons die erst später angezeigt werden//
         stopTracking.hide();
         closeChooseTraffic.hide();
@@ -129,7 +90,6 @@ public class MainActivity extends AppCompatActivity
         bus.hide();
         train.hide();
         car.hide();
-
 
         //Markus Linnartz: Bei Click des Play-Buttons (Starten des Trackings)//
         startTracking.setOnClickListener(new View.OnClickListener() {
@@ -318,6 +278,43 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+
+        mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+
+                }
+            }
+        });
+
+
+        //Seline Winkelmann: GoogleMaps implementiern (Code:AIzaSyCxPveUpfQr6cvTTdwYjbnkRyeieIJsmmY)
+        MapFragment mapFragment = (MapFragment) getFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                GoogleMap = googleMap;
+
+
+                // Add a marker in Sydney and move the camera
+                LatLng sydney = new LatLng(latitude, longitude);
+                GoogleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+                GoogleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            }
+
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -337,10 +334,6 @@ public class MainActivity extends AppCompatActivity
         }
 
     }
-
-
-
-
 
     //David: Anfrage zu Positions Update
     @Override
