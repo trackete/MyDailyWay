@@ -25,13 +25,19 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.vision.barcode.Barcode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -43,13 +49,17 @@ public class MainActivity extends AppCompatActivity
     // Julia Fassbinder und Seline Winkelmann: Definieren von Parametern
     private final int MY_PERMISSION_RWQUEST_FINE_LOCATION = 123;
     private final String TAG = "TAG";
-    public int longitude;   //Längengrad
-    public int latitude;    //Breitengrad
+    public double longitude;   //Längengrad
+    public double latitude;    //Breitengrad
     private FusedLocationProviderClient mFusedLocationClient;
     boolean mRequestingLocationUpdates;
+    private Location Location;
     private LocationRequest mLocationRequest;
     private LocationCallback mLocationCallback;
     String REQUESTING_LOCATION_UPDATES_KEY;
+    private MapView map;
+    String provider = LocationManager.GPS_PROVIDER;
+    List<Barcode.GeoPoint>geoPointArray = new ArrayList<Barcode.GeoPoint>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -310,7 +320,6 @@ public class MainActivity extends AppCompatActivity
             public void onMapReady(GoogleMap googleMap) {
                 GoogleMap = googleMap;
 
-
                 //Add a marker in Sydney and move the camera
                 LatLng sydney = new LatLng(latitude, longitude);
                 GoogleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
@@ -337,6 +346,29 @@ public class MainActivity extends AppCompatActivity
         }
 
     }
+    private void handleNewLocation(Location location){
+            Log.d(TAG, location.toString());
+            double currentLatitude = location.getLatitude();
+            double currentLongitude = location.getLongitude();
+            LatLng latLng;
+            latLng = new LatLng(currentLatitude, currentLongitude);
+
+            MarkerOptions options = new MarkerOptions().position(latLng);
+
+            GoogleMap.addMarker(options);
+
+            GoogleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+
+}
+
+public void onLocationChanged(Location location) {
+        if (Location != null) {
+            latitude = Location.getLatitude();
+            longitude = Location.getLongitude();
+        }
+
+}
+
 
     //David: Anfrage zu Positions Update
     @Override
