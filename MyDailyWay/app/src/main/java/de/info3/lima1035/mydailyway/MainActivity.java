@@ -468,12 +468,15 @@ public class MainActivity extends AppCompatActivity
                 .color(Color.GRAY));
         line.setVisible(true);
 
+
+        //Später mit Verkehrsmitelauswahl:
        /* if (chooseTraffic = 1){
 
             Polyline line = googleMap.addPolyline(new PolylineOptions()
                     .add(new LatLng(lat, lon), new LatLng(lat, lon))
                     .width(5)
                     .color(Color.GRAY));
+                           line.setVisible(true);
         }
 
         else if (chooseTraffic = 2){
@@ -482,6 +485,7 @@ public class MainActivity extends AppCompatActivity
                     .add(new LatLng(lat, lon), new LatLng(lat, lon))
                     .width(5)
                     .color(Color.GREEN));
+                            line.setVisible(true);
         }
 
         else if (chooseTraffic = 3){
@@ -490,6 +494,7 @@ public class MainActivity extends AppCompatActivity
                     .add(new LatLng(lat, lon), new LatLng(lat, lon))
                     .width(5)
                     .color(Color.MAGENTA));
+                            line.setVisible(true);
         }
 
         else if (chooseTraffic = 4){
@@ -498,6 +503,7 @@ public class MainActivity extends AppCompatActivity
                     .add(new LatLng(lat, lon), new LatLng(lat, lon))
                     .width(5)
                     .color(Color.BLUE));
+                            line.setVisible(true);
         }
 
         if (chooseTraffic = 5){
@@ -506,6 +512,7 @@ public class MainActivity extends AppCompatActivity
                     .add(new LatLng(lat, lon), new LatLng(lat, lon))
                     .width(5)
                     .color(Color.RED));
+                            line.setVisible(true);
         } */
     }
 
