@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    // Julia Fassbinder und Seline Winkelmann:
+    // Julia Fassbinder und Seline Winkelmann: Locationrequestintervall
     protected void createLocationRequest() {
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(10000);
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 
-
+    //David Adam: Toolbar und Drawer
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -419,7 +419,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    // Julia Fassbinder und Seline Winkelmann:
+    // Julia Fassbinder und Seline Winkelmann: Location
 
     @Override
     protected void onStart() {
@@ -435,12 +435,12 @@ public class MainActivity extends AppCompatActivity
             return;
         }
 
-        // Julia Fassbinder und Seline Winkelmann:
+        // Julia Fassbinder und Seline Winkelmann: Location
         mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
                 if (location != null) {
-                    //kamera
+
 
                     LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
                     float zoom = 20;
@@ -463,9 +463,10 @@ public class MainActivity extends AppCompatActivity
         double lonOld = ListLongitude.indexOf(size - 1);
 
         Polyline line = googleMap.addPolyline(new PolylineOptions()
-                .add(new LatLng(lat, lon), new LatLng(lat, lon))
+                .add(new LatLng(lat, lon), new LatLng(latOld, lonOld))
                 .width(5)
                 .color(Color.GRAY));
+        line.setVisible(true);
 
        /* if (chooseTraffic = 1){
 
@@ -508,14 +509,14 @@ public class MainActivity extends AppCompatActivity
         } */
     }
 
-    // Julia Fassbinder und Seline Winkelmann:
+    // Julia Fassbinder und Seline Winkelmann: Location Update stopp
     @Override
     protected void onStop() {
         super.onStop();
         stopLocationUpdates();
     }
 
-    // Julia Fassbinder und Seline Winkelmann:
+    // Julia Fassbinder und Seline Winkelmann: Standort
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
 
@@ -535,7 +536,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-    // Julia Fassbinder und Seline Winkelmann:
+    // Julia Fassbinder und Seline Winkelmann: Locationupdate starten
     private void updateValuesFromBundle(Bundle savedInstanceState) {
         if (savedInstanceState.keySet().contains(REQUESTING_LOCATION_UPDATES_KEY)) {
             mRequestingLocationUpdates = savedInstanceState.getBoolean(
@@ -563,7 +564,7 @@ public class MainActivity extends AppCompatActivity
                 mRequestingLocationUpdates);
         super.onSaveInstanceState(outState, outPersistentState);
     }
-    // Julia Fassbinder und Seline Winkelmann:
+    // Julia Fassbinder und Seline Winkelmann: Locationupdates  starten
     private void startLocationUpdates() {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
@@ -580,7 +581,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-        // Julia Fassbinder und Seline Winkelmann:
+        // Julia Fassbinder und Seline Winkelmann: Locations updates nachfragen
         mFusedLocationClient.requestLocationUpdates(mLocationRequest,
                 mLocationCallback,
                 null /* Looper */);

@@ -20,5 +20,6 @@
     <string name="nav_trackList">Tracks</string>
     <string name="nav_infos">Hilfe und Einstellungen</string>
     <string name="nav_impressum">Impressum</string>
+    <string name="nav_mail">contact@mydailyway.com</string>
 </resources>
 
