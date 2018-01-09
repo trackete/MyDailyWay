@@ -2,6 +2,7 @@ package de.info3.lima1035.mydailyway;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -30,6 +31,8 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.vision.barcode.Barcode;
 
@@ -40,8 +43,11 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ActivityCompat.OnRequestPermissionsResultCallback, OnMapReadyCallback {
 
     //Markus Linnartz: Aktuelle Auswahl des Verkehrsmittels: 1=Fußgänger; 2=Fahrrad; 3=Bus; 4=Zug; 5=Auto//
-    public static int chooseTraffic = 4;
+    public int chooseTraffic = 4;
+    public boolean track = false;
     private GoogleMap googleMap;
+    ArrayList ListLongitude;
+    ArrayList ListLatitude;
 
     // Julia Fassbinder und Seline Winkelmann: Definieren von Parametern
     private final int MY_PERMISSION_RWQUEST_FINE_LOCATION = 123;
@@ -90,7 +96,7 @@ public class MainActivity extends AppCompatActivity
         }
     }*/
 
-    // Julia Fassbinder und Seline Winkelmann:
+    // Julia Fassbinder und Seline Winkelmann: Standortfreigabe anfordern
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == MY_LOCATION_REQUEST_CODE) {
@@ -178,6 +184,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 startTracking.hide();
                 stopTracking.show();
+                track = true;
             }
         });
 
@@ -187,6 +194,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 stopTracking.hide();
                 startTracking.show();
+                track = false;
             }
         });
 
@@ -359,7 +367,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        // Julia Fassbinder und Seline Winkelmann:
+        // Julia Fassbinder und Seline Winkelmann: Standort
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             //&& ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
@@ -373,14 +381,14 @@ public class MainActivity extends AppCompatActivity
                 .findFragmentById(R.id.map);
 
 
-        // Julia Fassbinder und Seline Winkelmann:
+        // Julia Fassbinder und Seline Winkelmann: Standort
         mapFragment.getMapAsync(this);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         createLocationRequest();
 
-        // Julia Fassbinder und Seline Winkelmann:
+        // Julia Fassbinder und Seline Winkelmann: Standort
         mLocationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
@@ -394,6 +402,12 @@ public class MainActivity extends AppCompatActivity
                     //liste
                     //liste leeren wenn man sie nicht mehr braucht
 
+                    if (track = true){
+                        latitude = Location.getLatitude();
+                        longitude = Location.getLongitude();
+                        tracking(latitude, longitude);
+
+                    }
                 }
             }
 
@@ -401,8 +415,6 @@ public class MainActivity extends AppCompatActivity
         };
 
         startLocationUpdates();
-
-
 
 
     }
@@ -435,16 +447,66 @@ public class MainActivity extends AppCompatActivity
 
                     googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
 
-
-
-
-
-
                 }
             }
         });
     }
 
+    //Markus Linnartz: Tracking
+    public void tracking(double lati, double longi) {
+        ListLongitude.add(longi);
+        ListLatitude.add(lati);
+        int size = ListLatitude.size();
+        double lat = ListLatitude.indexOf(size);
+        double lon = ListLongitude.indexOf(size);
+        double latOld = ListLatitude.indexOf(size - 1);
+        double lonOld = ListLongitude.indexOf(size - 1);
+
+        Polyline line = googleMap.addPolyline(new PolylineOptions()
+                .add(new LatLng(lat, lon), new LatLng(lat, lon))
+                .width(5)
+                .color(Color.GRAY));
+
+       /* if (chooseTraffic = 1){
+
+            Polyline line = googleMap.addPolyline(new PolylineOptions()
+                    .add(new LatLng(lat, lon), new LatLng(lat, lon))
+                    .width(5)
+                    .color(Color.GRAY));
+        }
+
+        else if (chooseTraffic = 2){
+
+            Polyline line = googleMap.addPolyline(new PolylineOptions()
+                    .add(new LatLng(lat, lon), new LatLng(lat, lon))
+                    .width(5)
+                    .color(Color.GREEN));
+        }
+
+        else if (chooseTraffic = 3){
+
+            Polyline line = googleMap.addPolyline(new PolylineOptions()
+                    .add(new LatLng(lat, lon), new LatLng(lat, lon))
+                    .width(5)
+                    .color(Color.MAGENTA));
+        }
+
+        else if (chooseTraffic = 4){
+
+            Polyline line = googleMap.addPolyline(new PolylineOptions()
+                    .add(new LatLng(lat, lon), new LatLng(lat, lon))
+                    .width(5)
+                    .color(Color.BLUE));
+        }
+
+        if (chooseTraffic = 5){
+
+            Polyline line = googleMap.addPolyline(new PolylineOptions()
+                    .add(new LatLng(lat, lon), new LatLng(lat, lon))
+                    .width(5)
+                    .color(Color.RED));
+        } */
+    }
 
     // Julia Fassbinder und Seline Winkelmann:
     @Override
@@ -469,6 +531,7 @@ public class MainActivity extends AppCompatActivity
         }
         this.googleMap.setMyLocationEnabled(true);
     }
+
 
 
 
@@ -575,6 +638,8 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+
+    //David Adam: Nav-Menü
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
