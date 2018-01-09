@@ -24,13 +24,10 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.vision.barcode.Barcode;
 
@@ -420,10 +417,10 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onSuccess(Location location) {
                 if (location != null) {
-                   /* LatLng latlng = new LatLng(location.getLatitude(),location.getLongitude());
-                    float zoom = 20;
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, zoom));
-                    */
+                    //kamera
+
+
+
 
                 }
             }
