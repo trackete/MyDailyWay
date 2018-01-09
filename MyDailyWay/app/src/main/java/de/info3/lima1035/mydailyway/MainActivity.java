@@ -402,12 +402,14 @@ public class MainActivity extends AppCompatActivity
                     //liste
                     //liste leeren wenn man sie nicht mehr braucht
 
-                    if (track = true){
+
+                    //Tracking, funktioniert aber nicht
+                  /*  if (track = true){
                         latitude = Location.getLatitude();
                         longitude = Location.getLongitude();
                         tracking(latitude, longitude);
 
-                    }
+                    }*/
                 }
             }
 
@@ -452,6 +454,8 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+    /*
+    Tracking funktioniert aber nicht
     //Markus Linnartz: Tracking
     public void tracking(double lati, double longi) {
         ListLongitude.add(longi);
@@ -467,6 +471,7 @@ public class MainActivity extends AppCompatActivity
                 .width(5)
                 .color(Color.GRAY));
         line.setVisible(true);
+        */
 
 
         //Später mit Verkehrsmitelauswahl:
@@ -513,8 +518,8 @@ public class MainActivity extends AppCompatActivity
                     .width(5)
                     .color(Color.RED));
                             line.setVisible(true);
-        } */
-    }
+        } }*/
+
 
     // Julia Fassbinder und Seline Winkelmann: Location Update stopp
     @Override
