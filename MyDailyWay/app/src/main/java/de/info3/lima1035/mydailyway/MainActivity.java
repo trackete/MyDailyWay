@@ -1,14 +1,20 @@
 package de.info3.lima1035.mydailyway;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.PersistableBundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,6 +26,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -27,130 +35,71 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.vision.barcode.Barcode;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import de.info3.lima1035.mydailyway.Helper.TrackHandler;
+
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ActivityCompat.OnRequestPermissionsResultCallback, OnMapReadyCallback {
+        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback{
 
     //Markus Linnartz: Aktuelle Auswahl des Verkehrsmittels: 1=Fußgänger; 2=Fahrrad; 3=Bus; 4=Zug; 5=Auto//
     public int chooseTraffic = 4;
     public boolean track = false;
-    private GoogleMap googleMap;
+    private GoogleMap mMap;
     ArrayList ListLongitude;
     ArrayList ListLatitude;
 
     // Julia Fassbinder und Seline Winkelmann: Definieren von Parametern
-    private final int MY_PERMISSION_RWQUEST_FINE_LOCATION = 123;
+    private final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 123;
+    public static final String TAG = MainActivity.class.getSimpleName();
     private final int MY_LOCATION_REQUEST_CODE = 123;
-    private final String TAG = "TAG";
     public double longitude;   //Längengrad
     public double latitude;     //Breitengrad
     public Location location;
-    private FusedLocationProviderClient mFusedLocationClient;
-    boolean mRequestingLocationUpdates;
     private Location Location;
-    private LocationRequest mLocationRequest;
-    private LocationCallback mLocationCallback;
     String REQUESTING_LOCATION_UPDATES_KEY;
     private MapView map;
     String provider = LocationManager.GPS_PROVIDER;
     List<Barcode.GeoPoint> geoPointArray = new ArrayList<Barcode.GeoPoint>();
 
+    private LocationRequest mLocationRequest;
+    private FusedLocationProviderClient mFusedLocationClient;
+    private UiSettings uiSettings;
+    private Location mCurrentLocation;
+    private LocationCallback mLocationCallback;
+    private boolean mRequestingLocationUpdates;
+    private boolean mTracking = false;
+    private TrackHandler mTrackHandler;
+    FloatingActionButton buttonModeIcon;
 
-    /*@Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case MY_PERMISSION_RWQUEST_FINE_LOCATION: {
-                // if request is cancelled, the result rays are empty
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //start Location updates
-
-                    Log.d(TAG, "Permissions Granted");
-                } else {
-                    Log.d(TAG, "Permissons denied");
-                    //Show an explantation to user *asynchronously*
-                    AlertDialog.Builder ADbuilder = new AlertDialog.Builder(this);
-                    ADbuilder.setMessage("This permission is important for the App to function properly.")
-                            .setTitle("Important permission required")
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_RWQUEST_FINE_LOCATION);
-
-                                }
-                            });
-
-
-                }
-            }
-        }
-    }*/
-
-    // Julia Fassbinder und Seline Winkelmann: Standortfreigabe anfordern
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == MY_LOCATION_REQUEST_CODE) {
-            if (permissions.length == 1 &&
-                    permissions[0] == Manifest.permission.ACCESS_FINE_LOCATION &&
-                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-                    return;
-                }
-
-            } else {
-                // Permission was denied. Display an error message.
-            }
-        }
-    }
-
-    // Julia Fassbinder und Seline Winkelmann: Locationrequestintervall
-    protected void createLocationRequest() {
-        mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(10000);
-        mLocationRequest.setFastestInterval(5000);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-    }
-
-    //David Adam: Toolbar und Drawer
+    //on Create:
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        //Markus Linnartz: Einfügen der FloatingActionsButtons//
-        //Markus Linnartz: Jeweils ein Button pro Verkehrsmittel, wobei nur der Button mit dem Symbol des aktuell ausgewählten Verkehrsmittels unten links angezeigt wird)//
-        //Markus Linnartz: Jeweils ein Button zur Auswahl der verschiedenen Verkehrsmittel die nach dem Choose-Button erscheinen) und ein Button der diese Auswahl schließt//
-        //Markus Linnartz: Ein Start Tracking und ein Stop Tracking Button)//
         final FloatingActionButton startTracking = (FloatingActionButton) findViewById(R.id.button_start_tracking);
         final FloatingActionButton stopTracking = (FloatingActionButton) findViewById(R.id.button_stop_tracking);
         final FloatingActionButton chooseTrafficWalk = (FloatingActionButton) findViewById(R.id.button_choose_traffic_walk);
@@ -178,6 +127,7 @@ public class MainActivity extends AppCompatActivity
         train.hide();
         car.hide();
 
+
         //Markus Linnartz: Bei Click des Play-Buttons (Starten des Trackings)//
         startTracking.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,6 +135,7 @@ public class MainActivity extends AppCompatActivity
                 startTracking.hide();
                 stopTracking.show();
                 track = true;
+                mMap.clear();
             }
         });
 
@@ -195,6 +146,7 @@ public class MainActivity extends AppCompatActivity
                 stopTracking.hide();
                 startTracking.show();
                 track = false;
+                mTrackHandler.stopDraw();
             }
         });
 
@@ -367,256 +319,82 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        // Julia Fassbinder und Seline Winkelmann: Standort
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            //&& ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+       if (isGooglePlayServicesAvailable(this)) {
 
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
         } else {
-
+            finish();
         }
 
-        //Seline Winkelmann: GoogleMaps implementiern (Code:AIzaSyCxPveUpfQr6cvTTdwYjbnkRyeieIJsmmY)
-        MapFragment mapFragment = (MapFragment) getFragmentManager()
-                .findFragmentById(R.id.map);
+        LocationManager manager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
 
-
-        // Julia Fassbinder und Seline Winkelmann: Standort
-        mapFragment.getMapAsync(this);
-
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            showGpsConfirmationDialog();
+        }
         createLocationRequest();
 
-        // Julia Fassbinder und Seline Winkelmann: Standort
+
         mLocationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
                 for (Location location : locationResult.getLocations()) {
-                    //tracking
+                    if (location != null) {
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13));
+                        CameraPosition cameraPosition = new CameraPosition.Builder()
+                                .target(new LatLng(location.getLatitude(), location.getLongitude()))
+                                .zoom(17)
+                                .bearing(0)
+                                .build();
+                        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                        if (mTracking) {
+                            mTrackHandler.draw(location);
+                        }
+                    }
 
-                    //wird getrackt? if schleife
-                    // separate methode für linie
-                    //polylineoptions und polyline
-                    //loc in latlng umwandeln
-                    //liste
-                    //liste leeren wenn man sie nicht mehr braucht
-
-
-                    //Tracking, funktioniert aber nicht
-                  /*  if (track = true){
-                        latitude = Location.getLatitude();
-                        longitude = Location.getLongitude();
-                        tracking(latitude, longitude);
-
-                    }*/
                 }
             }
-
-            ;
         };
-
         startLocationUpdates();
 
-
     }
-
-    // Julia Fassbinder und Seline Winkelmann: Location
 
     @Override
     protected void onStart() {
         super.onStart();
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-
-        // Julia Fassbinder und Seline Winkelmann: Location
-        mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null) {
+        moveToLastLocation();
 
 
-                    LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                    float zoom = 20;
-
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
-
-                }
-            }
-        });
     }
 
-    /*
-    Tracking funktioniert aber nicht
-    //Markus Linnartz: Tracking
-    public void tracking(double lati, double longi) {
-        ListLongitude.add(longi);
-        ListLatitude.add(lati);
-        int size = ListLatitude.size();
-        double lat = ListLatitude.indexOf(size);
-        double lon = ListLongitude.indexOf(size);
-        double latOld = ListLatitude.indexOf(size - 1);
-        double lonOld = ListLongitude.indexOf(size - 1);
-
-        Polyline line = googleMap.addPolyline(new PolylineOptions()
-                .add(new LatLng(lat, lon), new LatLng(latOld, lonOld))
-                .width(5)
-                .color(Color.GRAY));
-        line.setVisible(true);
-        */
-
-
-        //Später mit Verkehrsmitelauswahl:
-       /* if (chooseTraffic = 1){
-
-            Polyline line = googleMap.addPolyline(new PolylineOptions()
-                    .add(new LatLng(lat, lon), new LatLng(lat, lon))
-                    .width(5)
-                    .color(Color.GRAY));
-                           line.setVisible(true);
-        }
-
-        else if (chooseTraffic = 2){
-
-            Polyline line = googleMap.addPolyline(new PolylineOptions()
-                    .add(new LatLng(lat, lon), new LatLng(lat, lon))
-                    .width(5)
-                    .color(Color.GREEN));
-                            line.setVisible(true);
-        }
-
-        else if (chooseTraffic = 3){
-
-            Polyline line = googleMap.addPolyline(new PolylineOptions()
-                    .add(new LatLng(lat, lon), new LatLng(lat, lon))
-                    .width(5)
-                    .color(Color.MAGENTA));
-                            line.setVisible(true);
-        }
-
-        else if (chooseTraffic = 4){
-
-            Polyline line = googleMap.addPolyline(new PolylineOptions()
-                    .add(new LatLng(lat, lon), new LatLng(lat, lon))
-                    .width(5)
-                    .color(Color.BLUE));
-                            line.setVisible(true);
-        }
-
-        if (chooseTraffic = 5){
-
-            Polyline line = googleMap.addPolyline(new PolylineOptions()
-                    .add(new LatLng(lat, lon), new LatLng(lat, lon))
-                    .width(5)
-                    .color(Color.RED));
-                            line.setVisible(true);
-        } }*/
-
-
-    // Julia Fassbinder und Seline Winkelmann: Location Update stopp
     @Override
     protected void onStop() {
         super.onStop();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
         stopLocationUpdates();
     }
 
-    // Julia Fassbinder und Seline Winkelmann: Standort
-    public void onMapReady(GoogleMap googleMap) {
-        this.googleMap = googleMap;
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        this.googleMap.setMyLocationEnabled(true);
-    }
-
-
-
-
-    // Julia Fassbinder und Seline Winkelmann: Locationupdate starten
-    private void updateValuesFromBundle(Bundle savedInstanceState) {
-        if (savedInstanceState.keySet().contains(REQUESTING_LOCATION_UPDATES_KEY)) {
-            mRequestingLocationUpdates = savedInstanceState.getBoolean(
-                    REQUESTING_LOCATION_UPDATES_KEY);
-        }
-        updateValuesFromBundle(savedInstanceState);
-
-    }
-
-
-
-
-    //David: Anfrage zu Positions Update
     @Override
     protected void onResume() {
         super.onResume();
+        //moveToLastLocation();
         if (mRequestingLocationUpdates) {
             startLocationUpdates();
         }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        outState.putBoolean(REQUESTING_LOCATION_UPDATES_KEY,
-                mRequestingLocationUpdates);
-        super.onSaveInstanceState(outState, outPersistentState);
-    }
-    // Julia Fassbinder und Seline Winkelmann: Locationupdates  starten
-    private void startLocationUpdates() {
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
-                (this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-
-
-
-        // Julia Fassbinder und Seline Winkelmann: Locations updates nachfragen
-        mFusedLocationClient.requestLocationUpdates(mLocationRequest,
-                mLocationCallback,
-                null /* Looper */);
-
-
-
 
     }
 
-
-
-
-    //David: Standort Updates anhalten
     @Override
     protected void onPause() {
         super.onPause();
-
     }
-    // Julia Fassbinder und Seline Winkelmann:
-    private void stopLocationUpdates() {
-        mFusedLocationClient.removeLocationUpdates(mLocationCallback);
-    }
-
 
     @Override
     public void onBackPressed() {
@@ -627,6 +405,163 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
+    // Asking for Permissions
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_FINE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // Start Location updates
+                    Log.d(TAG, "Permission Granted");
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return;
+                    } if (mMap != null) {
+                        mMap.setMyLocationEnabled(true);
+                    }
+
+                } else {
+                    Log.d(TAG, "Permission denied");
+                    // Show an explanation to the user *asynchronously*
+                    AlertDialog.Builder ADbuilder = new AlertDialog.Builder(this);
+                    ADbuilder.setMessage("This permission is important for the App to function properly.")
+                            .setTitle("Important permission required")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+                                }
+                            });
+                    ADbuilder.create();
+                    ADbuilder.show();
+                }
+            }
+        }
+    }
+
+ /*   public boolean isGooglePlayServicesAvailable(Activity activity) {
+        GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
+        int status = googleApiAvailability.isGooglePlayServicesAvailable(activity);
+        if (status != ConnectionResult.SUCCESS) {
+            if (googleApiAvailability.isUserResolvableError(status)) {
+                googleApiAvailability.getErrorDialog(activity, status, 2404).show();
+            }
+            return false;
+        }
+        return true;
+    } */
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+            return;
+        }
+        mMap = googleMap;
+        mMap.setMyLocationEnabled(true);
+        uiSettings = mMap.getUiSettings();
+
+        //setMyLocationEnabled only works, if permission is given
+
+        uiSettings.setMyLocationButtonEnabled(true);
+
+        mTrackHandler = new TrackHandler(this, googleMap);
+
+
+
+
+        LatLng karlsruhe = new LatLng(49.008085, 8.403756);
+        mMap.addMarker(new MarkerOptions().position(karlsruhe).title("Marker in Karlsruhe"));
+
+
+    }
+
+    private void moveToLastLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13));
+                    CameraPosition cameraPosition = new CameraPosition.Builder()
+                            .target(new LatLng(location.getLatitude(), location.getLongitude()))
+                            .zoom(17)
+                            .bearing(0)
+                            .build();
+                    mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+                }
+            }
+        });
+    }
+
+    protected void createLocationRequest() {
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(5000);
+        mLocationRequest.setFastestInterval(3000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+    }
+
+    private void startLocationUpdates() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mFusedLocationClient.requestLocationUpdates(mLocationRequest,
+                mLocationCallback,
+                getMainLooper());
+        mRequestingLocationUpdates = true;
+    }
+
+    private void showGpsConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
+        builder.setMessage(R.string.gpsConfirmation_message)
+                .setCancelable(false)
+                .setPositiveButton(R.string.gpsConfirmation_yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton(R.string.gpsConfirmation_no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void stopLocationUpdates(){
+        mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -649,6 +584,7 @@ public class MainActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 
 

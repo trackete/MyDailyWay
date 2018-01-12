@@ -7,7 +7,6 @@
     <string name="navigation_drawer_close">NavigationDrawerClose</string>
     <string name="google_maps_api_key">AIzaSyCxPveUpfQr6cvTTdwYjbnkRyeieIJsmmY</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="title_activity_start">StartActivity</string>
@@ -21,5 +20,9 @@
     <string name="nav_infos">Hilfe und Einstellungen</string>
     <string name="nav_impressum">Impressum</string>
     <string name="nav_mail">contact@mydailyway.com</string>
+
+    <string name="gpsConfirmation_message"> GPS ist nicht aktiviert. Um alle Funktionen dieser Anwendung nutzen zu können, müssen Sie GPS aktivieren. Wollen Sie zu den Einstellungen weitergeleitet werden?</string>
+    <string name="gpsConfirmation_yes">Ja</string>
+    <string name="gpsConfirmation_no">Nein</string>
 </resources>
 
