@@ -21,5 +21,6 @@
     string in this file.
     -->
     <!-- Googel Api Code eingefügt von Seline-->
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCdnH7hvb2mluk0r-kKh0jyBDo-gAxmsUE</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        AIzaSyCxPveUpfQr6cvTTdwYjbnkRyeieIJsmmY</string>
 </resources>
