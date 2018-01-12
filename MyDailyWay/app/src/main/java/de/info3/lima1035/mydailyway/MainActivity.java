@@ -320,13 +320,14 @@ public class MainActivity extends AppCompatActivity
         });
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-       if (isGooglePlayServicesAvailable(this)) {
+        if (isGooglePlayServicesAvailable(this)) {
 
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.map);
             mapFragment.getMapAsync(this);
         } else {
             finish();
+
         }
 
         LocationManager manager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
@@ -448,7 +449,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
- /*   public boolean isGooglePlayServicesAvailable(Activity activity) {
+    public boolean isGooglePlayServicesAvailable(Activity activity) {
         GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
         int status = googleApiAvailability.isGooglePlayServicesAvailable(activity);
         if (status != ConnectionResult.SUCCESS) {
@@ -458,7 +459,7 @@ public class MainActivity extends AppCompatActivity
             return false;
         }
         return true;
-    } */
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
