@@ -335,6 +335,7 @@ public class MainActivity extends AppCompatActivity
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             showGpsConfirmationDialog();
         }
+
         createLocationRequest();
 
 
@@ -476,7 +477,7 @@ public class MainActivity extends AppCompatActivity
 
         uiSettings.setMyLocationButtonEnabled(true);
 
-        mTrackHandler = new TrackHandler(this, googleMap);
+        mTrackHandler = new TrackHandler(this, mMap);
 
 
 
@@ -614,7 +615,6 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 
 }
 
