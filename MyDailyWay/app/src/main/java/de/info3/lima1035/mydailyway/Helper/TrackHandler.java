@@ -11,6 +11,8 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 
+import de.info3.lima1035.mydailyway.MainActivity;
+
 /**
  * Created by rich1016 on 30.11.2017.
  */
@@ -36,17 +38,74 @@ public class TrackHandler {
         mLocationList.add(location);
         double lat;
         double lon;
-        PolylineOptions options = new PolylineOptions().width(12).color(Color.CYAN);
-        for (int i = 0; i < mLocationList.size(); i++) {
-            Location tempLocation = mLocationList.get(i);
+        if (MainActivity.chooseTraffic == 1) {
+            PolylineOptions options = new PolylineOptions().width(12).color(Color.BLUE);
+            for (int i = 0; i < mLocationList.size(); i++) {
+                Location tempLocation = mLocationList.get(i);
 
-            lat = tempLocation.getLatitude();
-            lon = tempLocation.getLongitude();
-            LatLng latlng = new LatLng(lat, lon);
-            options.add(latlng);
+                lat = tempLocation.getLatitude();
+                lon = tempLocation.getLongitude();
+                LatLng latlng = new LatLng(lat, lon);
+                options.add(latlng);
+            }
+            polyline = mMap.addPolyline(options);
         }
 
-        polyline = mMap.addPolyline(options);
+        else if (MainActivity.chooseTraffic == 2) {
+                PolylineOptions options = new PolylineOptions().width(12).color(Color.GREEN);
+                for (int i = 0; i < mLocationList.size(); i++) {
+                    Location tempLocation = mLocationList.get(i);
+
+                    lat = tempLocation.getLatitude();
+                    lon = tempLocation.getLongitude();
+                    LatLng latlng = new LatLng(lat, lon);
+                    options.add(latlng);
+                }
+            polyline = mMap.addPolyline(options);
+
+        }
+
+        else if (MainActivity.chooseTraffic == 3) {
+            PolylineOptions options = new PolylineOptions().width(12).color(Color.YELLOW);
+            for (int i = 0; i < mLocationList.size(); i++) {
+                Location tempLocation = mLocationList.get(i);
+
+                lat = tempLocation.getLatitude();
+                lon = tempLocation.getLongitude();
+                LatLng latlng = new LatLng(lat, lon);
+                options.add(latlng);
+            }
+            polyline = mMap.addPolyline(options);
+
+        }
+
+        else if (MainActivity.chooseTraffic == 4) {
+            PolylineOptions options = new PolylineOptions().width(12).color(Color.RED);
+            for (int i = 0; i < mLocationList.size(); i++) {
+                Location tempLocation = mLocationList.get(i);
+
+                lat = tempLocation.getLatitude();
+                lon = tempLocation.getLongitude();
+                LatLng latlng = new LatLng(lat, lon);
+                options.add(latlng);
+            }
+            polyline = mMap.addPolyline(options);
+
+        }
+
+        else if (MainActivity.chooseTraffic == 5) {
+            PolylineOptions options = new PolylineOptions().width(12).color(Color.DKGRAY);
+            for (int i = 0; i < mLocationList.size(); i++) {
+                Location tempLocation = mLocationList.get(i);
+
+                lat = tempLocation.getLatitude();
+                lon = tempLocation.getLongitude();
+                LatLng latlng = new LatLng(lat, lon);
+                options.add(latlng);
+            }
+            polyline = mMap.addPolyline(options);
+        }
+
 
 
     }
