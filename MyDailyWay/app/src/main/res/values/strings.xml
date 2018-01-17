@@ -24,5 +24,10 @@
     <string name="gpsConfirmation_message"> GPS ist nicht aktiviert. Um alle Funktionen dieser Anwendung nutzen zu können, müssen Sie GPS aktivieren. Wollen Sie zu den Einstellungen weitergeleitet werden?</string>
     <string name="gpsConfirmation_yes">Ja</string>
     <string name="gpsConfirmation_no">Nein</string>
+
+
+
+    <string name="welcome">This is a DialogFragment</string>
+    <string name="alertdialogfragment">Open Alert Dialog Fragment</string>
 </resources>
 

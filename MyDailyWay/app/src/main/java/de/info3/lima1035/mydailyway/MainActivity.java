@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -86,6 +87,8 @@ public class MainActivity extends AppCompatActivity
     private TrackHandler mTrackHandler;
     FloatingActionButton buttonModeIcon;
 
+    private FragmentManager fm = getSupportFragmentManager();
+
     //on Create:
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,11 +148,15 @@ public class MainActivity extends AppCompatActivity
         //Markus Linnartz: Bei Click des Stop-Button (Stoppen des Trackings)//
         stopTracking.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View arg0) {
+
                 stopTracking.hide();
                 startTracking.show();
                 track = false;
                 mTrackHandler.stopDraw();
+
+                AlertDFragment alertDFragment = new AlertDFragment();
+                alertDFragment.show(fm , "Dialog Fragment");
             }
         });
 
