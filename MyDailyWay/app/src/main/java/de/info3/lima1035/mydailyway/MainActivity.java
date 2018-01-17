@@ -37,9 +37,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -50,8 +48,6 @@ import com.google.android.gms.vision.barcode.Barcode;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import de.info3.lima1035.mydailyway.Helper.TrackHandler;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback{
@@ -158,8 +154,8 @@ public class MainActivity extends AppCompatActivity
                 mTracking = false;
                 mTrackHandler.stopDraw();
 
-                AlertDFragment alertDFragment = new AlertDFragment();
-                alertDFragment.show(fm , "Dialog Fragment");
+               // AlertDFragment alertDFragment = new AlertDFragment();
+               // alertDFragment.show(fm , "Dialog Fragment");
             }
         });
 

@@ -1,4 +1,4 @@
-package de.info3.lima1035.mydailyway.Helper;
+package de.info3.lima1035.mydailyway;
 
 import android.content.Context;
 import android.graphics.Color;
