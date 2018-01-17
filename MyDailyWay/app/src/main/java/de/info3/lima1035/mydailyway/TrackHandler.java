@@ -21,7 +21,8 @@ public class TrackHandler {
 
     private GoogleMap mMap;
     private Location mLocation;
-    private ArrayList<Location> mLocationList;
+    private static ArrayList<Location> mLocationList;
+    public static ArrayList<Location> locList;
     private Context mContext;
     private Polyline polyline;
 
@@ -111,6 +112,7 @@ public class TrackHandler {
     }
 
     public void stopDraw(){
+        locList = mLocationList;
         mLocationList.clear();
 
     }

@@ -46,7 +46,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.vision.barcode.Barcode;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
@@ -156,6 +159,18 @@ public class MainActivity extends AppCompatActivity
 
                // AlertDFragment alertDFragment = new AlertDFragment();
                // alertDFragment.show(fm , "Dialog Fragment");
+
+                // Alles folgende kommt in die Speicherabfrage
+                Calendar calendar = Calendar.getInstance();
+                String Date = calendar.toString();
+
+                Tracking tracking = new Tracking();
+
+                tracking.setDate(Date);
+                tracking.setName("Name"); //Nutzer noch nach Name fragen
+                tracking.setLocation(TrackHandler.locList);
+                // tracking.setDuration(); -> Was ist das?
+
             }
         });
 
