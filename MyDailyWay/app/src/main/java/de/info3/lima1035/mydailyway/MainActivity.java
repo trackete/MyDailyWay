@@ -46,6 +46,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.vision.barcode.Barcode;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity
     private Location Location;
     String REQUESTING_LOCATION_UPDATES_KEY;
     private MapView map;
+
     String provider = LocationManager.GPS_PROVIDER;
     List<Barcode.GeoPoint> geoPointArray = new ArrayList<Barcode.GeoPoint>();
 
@@ -105,8 +107,8 @@ public class MainActivity extends AppCompatActivity
         final FloatingActionButton stopTracking = (FloatingActionButton) findViewById(R.id.button_stop_tracking);
         final FloatingActionButton chooseTrafficWalk = (FloatingActionButton) findViewById(R.id.button_choose_traffic_walk);
         final FloatingActionButton chooseTrafficBike = (FloatingActionButton) findViewById(R.id.button_choose_traffic_bike);
-        final FloatingActionButton chooseTrafficBus = (FloatingActionButton) findViewById(R.id.button_choose_traffic_bus);
         final FloatingActionButton chooseTrafficTrain = (FloatingActionButton) findViewById(R.id.button_choose_traffic_train);
+        final FloatingActionButton chooseTrafficBus = (FloatingActionButton) findViewById(R.id.button_choose_traffic_bus);
         final FloatingActionButton chooseTrafficCar = (FloatingActionButton) findViewById(R.id.button_choose_traffic_car);
         final FloatingActionButton closeChooseTraffic = (FloatingActionButton) findViewById(R.id.button_close_choose_traffic);
         final FloatingActionButton walk = (FloatingActionButton) findViewById(R.id.button_walk);
