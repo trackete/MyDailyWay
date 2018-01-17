@@ -9,13 +9,13 @@ import java.util.List;
 public class LocationData {
 
 
-    private List<Location> locationList;
+    private List<Tracking> locationList;
 
     private static LocationData instance;
 
     private LocationData(){
 
-        locationList = new ArrayList<Location>();
+        locationList = new ArrayList<Tracking>();
 
     }
 
@@ -30,7 +30,7 @@ public class LocationData {
    //     locationList.add(location);
     }
 
-    public List<Location> getUserList() {
+    public List<Tracking> getLocationList() {
         return locationList;
     }
 

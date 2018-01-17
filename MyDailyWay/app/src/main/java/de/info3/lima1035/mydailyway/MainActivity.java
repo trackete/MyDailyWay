@@ -25,6 +25,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 
 import com.google.android.gms.common.ConnectionResult;
@@ -624,6 +625,8 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_change_profile) {
             // Handle the camera action
         } else if (id == R.id.nav_tracks) {
+            Intent listIntent = new Intent(MainActivity.this, ListActivity.class);
+            startActivity(listIntent);
 
         } else if (id == R.id.nav_favorites) {
 

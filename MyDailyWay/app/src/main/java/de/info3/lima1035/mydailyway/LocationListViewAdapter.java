@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,32 +17,46 @@ import java.util.List;
 
 public class LocationListViewAdapter extends BaseAdapter {
 
-    private LayoutInflater inflater;
-    private List<Location> locationList;
 
-    public LocationListViewAdapter (Context context,List<Location> listLocation) {
-        locationList = listLocation;
-        inflater = LayoutInflater.from(context);
-    }
+    private List<Tracking> locationList;
+    private LayoutInflater layoutInflater;
+
 
 
     @Override
     public int getCount() {
-        return locationList.size();
+        int length = locationList.size();
+
+        return length;
     }
 
     @Override
-    public Object getItem(int i) {
-        return null;
+    public Object getItem(int position) {
+        return locationList.get(position);
     }
 
     @Override
-    public long getItemId(int i) {
-        return 0;
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        return null;
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View view = convertView;
+        if (convertView == null) {
+            view = layoutInflater.inflate(R.layout.location_list_item, null);
+            TextView textView =(TextView) view.findViewById(R.id.textView_username);
+            textView.setText(locationList.get(position).getName());
+        }
+
+        ((TextView) view.findViewById(android.R.id.text1)).setText((Integer) getItem(position));
+        return view;
     }
+public LocationListViewAdapter (Context context, List<Tracking> locationList) {
+        this.locationList = locationList;
+        this.layoutInflater = LayoutInflater.from(context);
+
+}
+
+
 }
