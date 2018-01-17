@@ -56,22 +56,22 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback{
 
     //Markus Linnartz: Aktuelle Auswahl des Verkehrsmittels: 1=Fußgänger; 2=Fahrrad; 3=Bus; 4=Zug; 5=Auto//
-    public int chooseTraffic = 4;
+    public static int chooseTraffic = 4;
     public boolean track = false;
     private GoogleMap mMap;
-    ArrayList ListLongitude;
-    ArrayList ListLatitude;
+   // ArrayList ListLongitude;
+    //ArrayList ListLatitude;
 
     // Julia Fassbinder und Seline Winkelmann: Definieren von Parametern
     private final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 123;
     public static final String TAG = MainActivity.class.getSimpleName();
-    private final int MY_LOCATION_REQUEST_CODE = 123;
-    public double longitude;   //Längengrad
-    public double latitude;     //Breitengrad
-    public Location location;
-    private Location Location;
-    String REQUESTING_LOCATION_UPDATES_KEY;
-    private MapView map;
+   // private final int MY_LOCATION_REQUEST_CODE = 123;
+  //  public double longitude;   //Längengrad
+  //  public double latitude;     //Breitengrad
+  //  public Location location;
+  //  private Location Location;
+   // String REQUESTING_LOCATION_UPDATES_KEY;
+  //  private MapView map;
 
     String provider = LocationManager.GPS_PROVIDER;
     List<Barcode.GeoPoint> geoPointArray = new ArrayList<Barcode.GeoPoint>();
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity
     private boolean mRequestingLocationUpdates;
     private boolean mTracking = false;
     private TrackHandler mTrackHandler;
-    FloatingActionButton buttonModeIcon;
+  //  FloatingActionButton buttonModeIcon;
 
     //on Create:
     @Override
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -138,7 +138,9 @@ public class MainActivity extends AppCompatActivity
                 startTracking.hide();
                 stopTracking.show();
                 track = true;
+                mTracking = true;
                 mMap.clear();
+
             }
         });
 
@@ -149,6 +151,7 @@ public class MainActivity extends AppCompatActivity
                 stopTracking.hide();
                 startTracking.show();
                 track = false;
+                mTracking = false;
                 mTrackHandler.stopDraw();
             }
         });
