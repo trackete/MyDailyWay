@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity
     private TrackHandler mTrackHandler;
   //  FloatingActionButton buttonModeIcon;
 
-    private FragmentManager fm = getSupportFragmentManager();
+
 
     //on Create:
     @Override
@@ -158,6 +158,8 @@ public class MainActivity extends AppCompatActivity
                 mTracking = false;
                 mTrackHandler.stopDraw();
 
+
+                FragmentManager fm = getSupportFragmentManager();
                 AlertDFragment alertDFragment = new AlertDFragment();
                 alertDFragment.show(fm , "Dialog Fragment");
             }
