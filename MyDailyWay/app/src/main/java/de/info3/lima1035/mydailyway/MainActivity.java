@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity
         //Markus Linnartz: Bei Click des Stop-Button (Stoppen des Trackings)//
         stopTracking.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View arg0) {
+            public void onClick(View view) {
 
                 stopTracking.hide();
                 startTracking.show();
@@ -158,8 +158,11 @@ public class MainActivity extends AppCompatActivity
                 mTracking = false;
                 mTrackHandler.stopDraw();
 
-               // AlertDFragment alertDFragment = new AlertDFragment();
-               // alertDFragment.show(fm , "Dialog Fragment");
+                Intent intentSave = new Intent(MainActivity.this,SaveActivity.class);
+                // detailIntent.putExtra(KEY, position);
+                startActivity(intentSave);
+
+
 
                 // Alles folgende kommt in die Speicherabfrage
                 Calendar calendar = Calendar.getInstance();
