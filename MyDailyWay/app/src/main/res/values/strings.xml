@@ -28,11 +28,20 @@
 
     <string name="welcome">This is a DialogFragment</string>
     <string name="alertdialogfragment">Open Alert Dialog Fragment</string>
-    <string name="title_activity_list">ListActivity</string>
+    <string name="title_activity_list">Tracks</string>
+    <string name="title_track_save">Speichern</string>
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.
     -->
     <string name="hello_world">Hello Square World!</string>
+
+    <string name="cancel">Abbrechen</string>
+    <string name="save">Speichern</string>
+    <string name="track_name">Trackname eingeben: </string>
+    <string name="duration">Dauer der Fahrt: </string>
+    <string name="date">Datum: </string>
+    <string name="lenght">Länge der Strecke: </string>
+
 </resources>
 

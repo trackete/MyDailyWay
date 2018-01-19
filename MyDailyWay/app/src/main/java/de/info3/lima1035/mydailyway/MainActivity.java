@@ -47,35 +47,30 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.vision.barcode.Barcode;
 
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static android.provider.Contacts.SettingsColumns.KEY;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback{
 
-    //Markus Linnartz: Aktuelle Auswahl des Verkehrsmittels: 1=Fußgänger; 2=Fahrrad; 3=Bus; 4=Zug; 5=Auto//
+    //Aktuelle Auswahl des Verkehrsmittels: 1=Fußgänger; 2=Fahrrad; 3=Bus; 4=Zug; 5=Auto//
     public static int chooseTraffic = 4;
     public boolean track = false;
     private GoogleMap mMap;
-   // ArrayList ListLongitude;
-    //ArrayList ListLatitude;
-
-    // Julia Fassbinder und Seline Winkelmann: Definieren von Parametern
     private final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 123;
     public static final String TAG = MainActivity.class.getSimpleName();
-   // private final int MY_LOCATION_REQUEST_CODE = 123;
-  //  public double longitude;   //Längengrad
-  //  public double latitude;     //Breitengrad
-  //  public Location location;
-  //  private Location Location;
-   // String REQUESTING_LOCATION_UPDATES_KEY;
-  //  private MapView map;
+
 
     String provider = LocationManager.GPS_PROVIDER;
     List<Barcode.GeoPoint> geoPointArray = new ArrayList<Barcode.GeoPoint>();
+
+
 
     private LocationRequest mLocationRequest;
     private FusedLocationProviderClient mFusedLocationClient;
@@ -85,9 +80,12 @@ public class MainActivity extends AppCompatActivity
     private boolean mRequestingLocationUpdates;
     private boolean mTracking = false;
     private TrackHandler mTrackHandler;
-  //  FloatingActionButton buttonModeIcon;
+    public static final String KEY_DATE = "key";
+    public static final String KEY_DURATION = "keytime";
+    private Date dateStart;
+    private Date dateStop;
+    private String result;
 
-    private FragmentManager fm = getSupportFragmentManager();
 
     //on Create:
     @Override
@@ -144,13 +142,14 @@ public class MainActivity extends AppCompatActivity
                 mTracking = true;
                 mMap.clear();
 
+                dateStart = Calendar.getInstance().getTime();
             }
         });
 
         //Markus Linnartz: Bei Click des Stop-Button (Stoppen des Trackings)//
         stopTracking.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View arg0) {
+            public void onClick(View view) {
 
                 stopTracking.hide();
                 startTracking.show();
@@ -158,22 +157,39 @@ public class MainActivity extends AppCompatActivity
                 mTracking = false;
                 mTrackHandler.stopDraw();
 
-               // AlertDFragment alertDFragment = new AlertDFragment();
-               // alertDFragment.show(fm , "Dialog Fragment");
+                Date cDate = new Date();
+                String date = new SimpleDateFormat("dd.MM.yyyy").format(cDate);
+                //Berechnung der Performance Dave
+                dateStop = Calendar.getInstance().getTime();
+                SimpleDateFormat sdf = new SimpleDateFormat("DD/MM/YY HH:MM:SS");
+                Date d1 = null;
+                Date d2 = null;
+                try {
+                    d1 = sdf.parse(String.valueOf(dateStart));
+                    d2 = sdf.parse(String.valueOf(dateStop));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                double diff = d2.getTime() - d1.getTime();
+                double diffSeconds = diff / 1000;
+                double diffMinutes = diff / (60 * 1000);
+                double diffHours = diff / (60 * 60 * 1000);
 
-                // Alles folgende kommt in die Speicherabfrage
-                Calendar calendar = Calendar.getInstance();
-                String Date = calendar.toString();
 
-                Tracking tracking = new Tracking();
 
-                tracking.setDate(Date);
-                tracking.setName("Name"); //Nutzer noch nach Name fragen
-                tracking.setLocation(TrackHandler.locList);
-                // tracking.setDuration(); -> Was ist das?
+                result = diffHours + " : " + diffMinutes + " : " + diffMinutes;
+
+                Intent intentSave = new Intent(MainActivity.this,SaveActivity.class);
+                intentSave.putExtra(KEY_DATE, date);
+                intentSave.putExtra(KEY_DATE, result);
+                startActivity(intentSave);
 
             }
         });
+
+
+
+
 
         //Markus Linnartz: Bei Click des Choose-Traffic-Buttons (Fußgängersymbol)//
         chooseTrafficWalk.setOnClickListener(new View.OnClickListener() {

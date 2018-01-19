@@ -55,13 +55,13 @@ public class Tracking {
         return name;
     }
 
-    public ArrayList<Location> location;
+    public String location;
 
-    public void setLocation(ArrayList<Location> location) {
+    public void setLocation(String location) {
         this.location = location;
     }
 
-    public ArrayList<Location> getLocation() {
+    public String getLocation() {
         return location;
     }
 

@@ -47,8 +47,7 @@ public class DbHelper extends SQLiteOpenHelper {
         valuesLocation.put(DbContract.LocationTable.COLUMN_NAME_DURATION, location.getDuration());
         valuesLocation.put(DbContract.LocationTable.COLUMN_NAME_TRAFFIC, location.getTraffic());
         valuesLocation.put(DbContract.LocationTable.COLUMN_NAME_NAME, location.getName());
-        valuesLocation.put(DbContract.LocationTable.COLUMN_NAME_LAT, location.getLatitude());
-        valuesLocation.put(DbContract.LocationTable.COLUMN_NAME_LONG, location.getLongitude());
+        valuesLocation.put(DbContract.LocationTable.COLUMN_NAME_LOC, location.getLocation());
 
 
         db.insert(DbContract.LocationTable.TABLE_NAME,null,valuesLocation);
@@ -75,24 +74,24 @@ public class DbHelper extends SQLiteOpenHelper {
                 String duration = cursor.getString(cursor.getColumnIndex(DbContract.LocationTable.COLUMN_NAME_DURATION));
                 String traffic = cursor.getString(cursor.getColumnIndex(DbContract.LocationTable.COLUMN_NAME_TRAFFIC));
                 String name = cursor.getString(cursor.getColumnIndex(DbContract.LocationTable.COLUMN_NAME_NAME));
-                String latitude = cursor.getString(cursor.getColumnIndex(DbContract.LocationTable.COLUMN_NAME_LAT));
-                String longitude = cursor.getString(cursor.getColumnIndex(DbContract.LocationTable.COLUMN_NAME_LONG));
+                String location = cursor.getString(cursor.getColumnIndex(DbContract.LocationTable.COLUMN_NAME_LOC));
 
 
-                double lat = Double.parseDouble(latitude);
-                double lon = Double.parseDouble(longitude);
+               // double lat = Double.parseDouble(latitude);
+               // double lon = Double.parseDouble(longitude);
 
 
-                Tracking location = new Tracking();
+                Tracking track = new Tracking();
 
-                location.setDate(date);
-                location.setDuration(duration);
-                location.setTraffic(traffic);
-                location.setName(name);
+                track.setDate(date);
+                track.setDuration(duration);
+                track.setTraffic(traffic);
+                track.setName(name);
+                track.setLocation(location);
 
 
 
-                LocationData.getInstance().save(location);
+                LocationData.getInstance().save(track);
 
             }while (cursor.moveToNext());
 
