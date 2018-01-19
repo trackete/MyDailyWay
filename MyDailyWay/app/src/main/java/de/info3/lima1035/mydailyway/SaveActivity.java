@@ -17,11 +17,13 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
 
     public String date = "";
     public String duration = "";
+    public String length = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.track_save_drawer);
+
         Button buttonSave= (Button) findViewById(R.id.button_save);
         Button buttonCancel= (Button) findViewById(R.id.button_cancel);
 
@@ -32,13 +34,16 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        duration = getIntent().getExtras().getString(MainActivity.KEY_DURATION);
-        TextView textDauration= (TextView) findViewById(R.id.textView_duration);
-        textDauration.setText(duration);
+       /* duration = getIntent().getExtras().getString(MainActivity.KEY_DURATION);
+        TextView textDuration= (TextView) findViewById(R.id.textView_duration_show);
+        textDuration.setText(duration);*/
 
         date = getIntent().getExtras().getString(MainActivity.KEY_DATE);
         TextView textDate = (TextView) findViewById(R.id.textView_date_show);
         textDate.setText(date);
+
+        length = getIntent().getExtras().getString(MainActivity.KEY_LENGTH);
+        TextView textLength = (TextView) findViewById(R.id.textView_length_show);
 
 
         buttonSave.setOnClickListener(new View.OnClickListener() {

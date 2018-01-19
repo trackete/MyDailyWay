@@ -49,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editText_trackName" />
 
     <TextView
-        android:id="@+id/textView_lenght"
+        android:id="@+id/textView_length"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -66,7 +66,7 @@
         android:layout_marginTop="5dp"
         android:text="@string/duration"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_lenght" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_length" />
 
     <TextView
         android:id="@+id/textView_date_show"
@@ -83,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/textView_lenght"
+        app:layout_constraintStart_toEndOf="@+id/textView_length"
         app:layout_constraintTop_toBottomOf="@+id/textView_date_show" />
 
     <TextView
