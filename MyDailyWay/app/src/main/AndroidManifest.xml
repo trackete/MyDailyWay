@@ -45,7 +45,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SaveActivity"></activity>
+        <activity
+            android:name=".SaveActivity">
+            android:lable="@string/title_track_save"
+        </activity>
+
     </application>
 
 </manifest>
