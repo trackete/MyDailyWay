@@ -53,29 +53,23 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static android.provider.Contacts.SettingsColumns.KEY;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback{
 
-    //Markus Linnartz: Aktuelle Auswahl des Verkehrsmittels: 1=Fußgänger; 2=Fahrrad; 3=Bus; 4=Zug; 5=Auto//
+    //Aktuelle Auswahl des Verkehrsmittels: 1=Fußgänger; 2=Fahrrad; 3=Bus; 4=Zug; 5=Auto//
     public static int chooseTraffic = 4;
     public boolean track = false;
     private GoogleMap mMap;
-   // ArrayList ListLongitude;
-    //ArrayList ListLatitude;
-
-    // Julia Fassbinder und Seline Winkelmann: Definieren von Parametern
     private final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 123;
     public static final String TAG = MainActivity.class.getSimpleName();
-   // private final int MY_LOCATION_REQUEST_CODE = 123;
-  //  public double longitude;   //Längengrad
-  //  public double latitude;     //Breitengrad
-  //  public Location location;
-  //  private Location Location;
-   // String REQUESTING_LOCATION_UPDATES_KEY;
-  //  private MapView map;
+
 
     String provider = LocationManager.GPS_PROVIDER;
     List<Barcode.GeoPoint> geoPointArray = new ArrayList<Barcode.GeoPoint>();
+
+
 
     private LocationRequest mLocationRequest;
     private FusedLocationProviderClient mFusedLocationClient;
@@ -85,7 +79,7 @@ public class MainActivity extends AppCompatActivity
     private boolean mRequestingLocationUpdates;
     private boolean mTracking = false;
     private TrackHandler mTrackHandler;
-  //  FloatingActionButton buttonModeIcon;
+    public static final String KEY_DATE = "key";
 
     private FragmentManager fm = getSupportFragmentManager();
 
@@ -158,22 +152,13 @@ public class MainActivity extends AppCompatActivity
                 mTracking = false;
                 mTrackHandler.stopDraw();
 
+                Date cDate = new Date();
+                String date = new SimpleDateFormat("dd.MM.yyyy").format(cDate);
+
+
                 Intent intentSave = new Intent(MainActivity.this,SaveActivity.class);
-                // detailIntent.putExtra(KEY, position);
+                intentSave.putExtra(KEY_DATE, date);
                 startActivity(intentSave);
-
-
-
-                // Alles folgende kommt in die Speicherabfrage
-                Calendar calendar = Calendar.getInstance();
-                String Date = calendar.toString();
-
-                Tracking tracking = new Tracking();
-
-                tracking.setDate(Date);
-                tracking.setName("Name"); //Nutzer noch nach Name fragen
-                tracking.setLocation("Location");
-                // tracking.setDuration(); -> Was ist das?
 
             }
         });
