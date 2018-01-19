@@ -47,7 +47,6 @@
         </activity>
         <activity
             android:name=".SaveActivity">
-            android:lable="@string/title_track_save"
         </activity>
 
     </application>
