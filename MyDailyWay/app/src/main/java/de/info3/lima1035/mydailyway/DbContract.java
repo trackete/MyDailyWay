@@ -7,7 +7,6 @@ public class DbContract {
 
     private DbContract (){
 
-
     }
 
     public static class LocationTable implements BaseColumns {
