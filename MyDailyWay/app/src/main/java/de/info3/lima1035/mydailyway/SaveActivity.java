@@ -16,6 +16,7 @@ import android.widget.TextView;
 public class SaveActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     public String date = "";
+    public String duration = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,10 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        duration = getIntent().getExtras().getString(MainActivity.KEY_DURATION);
+        TextView textDauration= (TextView) findViewById(R.id.textView_duration);
+        textDauration.setText(duration);
 
         date = getIntent().getExtras().getString(MainActivity.KEY_DATE);
         TextView textDate = (TextView) findViewById(R.id.textView_date_show);

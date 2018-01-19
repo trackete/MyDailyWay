@@ -47,6 +47,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.vision.barcode.Barcode;
 
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -80,8 +81,11 @@ public class MainActivity extends AppCompatActivity
     private boolean mTracking = false;
     private TrackHandler mTrackHandler;
     public static final String KEY_DATE = "key";
+    public static final String KEY_DURATION = "keytime";
+    private Date dateStart;
+    private Date dateStop;
+    private String result;
 
-    private FragmentManager fm = getSupportFragmentManager();
 
     //on Create:
     @Override
@@ -138,6 +142,7 @@ public class MainActivity extends AppCompatActivity
                 mTracking = true;
                 mMap.clear();
 
+                dateStart = Calendar.getInstance().getTime();
             }
         });
 
@@ -154,14 +159,37 @@ public class MainActivity extends AppCompatActivity
 
                 Date cDate = new Date();
                 String date = new SimpleDateFormat("dd.MM.yyyy").format(cDate);
+                //Berechnung der Performance Dave
+                dateStop = Calendar.getInstance().getTime();
+                SimpleDateFormat sdf = new SimpleDateFormat("DD/MM/YY HH:MM:SS");
+                Date d1 = null;
+                Date d2 = null;
+                try {
+                    d1 = sdf.parse(String.valueOf(dateStart));
+                    d2 = sdf.parse(String.valueOf(dateStop));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                double diff = d2.getTime() - d1.getTime();
+                double diffSeconds = diff / 1000;
+                double diffMinutes = diff / (60 * 1000);
+                double diffHours = diff / (60 * 60 * 1000);
 
+
+
+                result = diffHours + " : " + diffMinutes + " : " + diffMinutes;
 
                 Intent intentSave = new Intent(MainActivity.this,SaveActivity.class);
                 intentSave.putExtra(KEY_DATE, date);
+                intentSave.putExtra(KEY_DATE, result);
                 startActivity(intentSave);
 
             }
         });
+
+
+
+
 
         //Markus Linnartz: Bei Click des Choose-Traffic-Buttons (Fußgängersymbol)//
         chooseTrafficWalk.setOnClickListener(new View.OnClickListener() {
