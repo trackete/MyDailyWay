@@ -1,6 +1,9 @@
 package de.info3.lima1035.mydailyway;
 
 
+import android.location.Location;
+
+import java.util.ArrayList;
 
 public class Tracking {
 
@@ -52,23 +55,14 @@ public class Tracking {
         return name;
     }
 
-    public String latitude;
+    public ArrayList<Location> location;
 
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
+    public void setLocation(ArrayList<Location> location) {
+        this.location = location;
     }
 
-    public String getLatitude() {
-        return latitude;
+    public ArrayList<Location> getLocation() {
+        return location;
     }
 
-    public String longitude;
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
-
-    public String getLongitude() {
-        return longitude;
-    }
 }

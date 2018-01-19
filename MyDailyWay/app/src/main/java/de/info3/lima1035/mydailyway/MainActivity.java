@@ -25,6 +25,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 
 import com.google.android.gms.common.ConnectionResult;
@@ -37,9 +38,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -48,10 +47,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.vision.barcode.Barcode;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-
-import de.info3.lima1035.mydailyway.Helper.TrackHandler;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback{
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity
     private TrackHandler mTrackHandler;
   //  FloatingActionButton buttonModeIcon;
 
-
+    private FragmentManager fm = getSupportFragmentManager();
 
     //on Create:
     @Override
@@ -158,10 +158,20 @@ public class MainActivity extends AppCompatActivity
                 mTracking = false;
                 mTrackHandler.stopDraw();
 
+               // AlertDFragment alertDFragment = new AlertDFragment();
+               // alertDFragment.show(fm , "Dialog Fragment");
 
-                FragmentManager fm = getSupportFragmentManager();
-                AlertDFragment alertDFragment = new AlertDFragment();
-                alertDFragment.show(fm , "Dialog Fragment");
+                // Alles folgende kommt in die Speicherabfrage
+                Calendar calendar = Calendar.getInstance();
+                String Date = calendar.toString();
+
+                Tracking tracking = new Tracking();
+
+                tracking.setDate(Date);
+                tracking.setName("Name"); //Nutzer noch nach Name fragen
+                tracking.setLocation(TrackHandler.locList);
+                // tracking.setDuration(); -> Was ist das?
+
             }
         });
 
@@ -615,6 +625,8 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_change_profile) {
             // Handle the camera action
         } else if (id == R.id.nav_tracks) {
+            Intent listIntent = new Intent(MainActivity.this, ListActivity.class);
+            startActivity(listIntent);
 
         } else if (id == R.id.nav_favorites) {
 
