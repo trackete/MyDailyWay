@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity
 
                 tracking.setDate(Date);
                 tracking.setName("Name"); //Nutzer noch nach Name fragen
-                tracking.setLocation(TrackHandler.locList);
+                tracking.setLocation("Location");
                 // tracking.setDuration(); -> Was ist das?
 
             }
