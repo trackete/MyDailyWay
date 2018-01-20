@@ -45,7 +45,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SaveActivity">
+            android:name=".SaveActivity"
+            android:label="@string/title_track_save">
         </activity>
 
     </application>

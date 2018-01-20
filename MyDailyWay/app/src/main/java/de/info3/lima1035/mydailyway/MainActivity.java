@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity
                 String date = new SimpleDateFormat("dd.MM.yyyy").format(cDate);
 
                //durationCalc();
-                //result = "hallo";
+                result = "hallo";
 
                 Intent intentSave = new Intent(MainActivity.this,SaveActivity.class);
                 intentSave.putExtra("KEY_DATE", date);
