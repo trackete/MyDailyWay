@@ -10,14 +10,20 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SaveActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     public String date = "";
     public String duration = "";
     public String length = "";
+    Spinner wayPurpuseSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,16 +40,31 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-       /* duration = getIntent().getExtras().getString(MainActivity.KEY_DURATION);
+        duration = getIntent().getExtras().getString("KEY_DURATION");
         TextView textDuration= (TextView) findViewById(R.id.textView_duration_show);
-        textDuration.setText(duration);*/
+        textDuration.setText(duration);
 
-        date = getIntent().getExtras().getString(MainActivity.KEY_DATE);
+        date = getIntent().getExtras().getString("KEY_DATE");
         TextView textDate = (TextView) findViewById(R.id.textView_date_show);
         textDate.setText(date);
 
         length = getIntent().getExtras().getString(MainActivity.KEY_LENGTH);
         TextView textLength = (TextView) findViewById(R.id.textView_length_show);
+
+        Spinner wayPurposeSpinner;
+        wayPurposeSpinner = (Spinner) findViewById(R.id.spinner_way_purpuse);
+        List<String> list = new ArrayList<String>();
+        list.add("Arbeit");
+        list.add("Ausbildung");
+        list.add("Einkauf");
+        list.add("Heimweg");
+        list.add("Freizeit");
+
+        //weis nicht ob nötig
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, list);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        wayPurposeSpinner.setAdapter(dataAdapter);
 
 
         buttonSave.setOnClickListener(new View.OnClickListener() {

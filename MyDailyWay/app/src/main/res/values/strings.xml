@@ -39,9 +39,21 @@
     <string name="cancel">Abbrechen</string>
     <string name="save">Speichern</string>
     <string name="track_name">Trackname eingeben: </string>
-    <string name="duration">Dauer der Fahrt: </string>
-    <string name="date">Datum: </string>
-    <string name="lenght">Länge der Strecke: </string>
+    <string name="duration">Dauer der Fahrt:  </string>
+    <string name="date">Datum:  </string>
+    <string name="lenght">Länge der Strecke:  </string>
+    <string name="way_purpose">Wegezweck:  </string>
+
+
+    <string-array name="way_purpose_spinner">
+        <item>Arbeit</item>
+        <item>Ausbildung</item>
+        <item>Einkauf</item>
+        <item>Heimweg</item>
+        <item>Freizeit</item>
+    </string-array>
+
+
 
 </resources>
 

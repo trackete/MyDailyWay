@@ -12,7 +12,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentManager;
+
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -83,9 +83,11 @@ public class MainActivity extends AppCompatActivity
     public static final String KEY_DATE = "key";
     public static final String KEY_DURATION = "key";
     public static final String KEY_LENGTH = "key";
-    private Date dateStart;
 
-    private Date date;
+    private Date dateStart;
+    private Date dateStop;
+
+
     private String result;
     private String length;
 
@@ -164,11 +166,11 @@ public class MainActivity extends AppCompatActivity
                 String date = new SimpleDateFormat("dd.MM.yyyy").format(cDate);
 
                //durationCalc();
-
+                //result = "hallo";
 
                 Intent intentSave = new Intent(MainActivity.this,SaveActivity.class);
-                intentSave.putExtra(KEY_DATE, date);
-               // intentSave.putExtra(KEY_DURATION, result);
+                intentSave.putExtra("KEY_DATE", date);
+                intentSave.putExtra("KEY_DURATION", result);
                 //intentSave.putExtra(KEY_LENGTH,length);
                 startActivity(intentSave);
 
@@ -649,7 +651,7 @@ public class MainActivity extends AppCompatActivity
     public void durationCalc(){
 
         //Berechnung der Performance Dave
-        Date dateStop;
+
         dateStop = Calendar.getInstance().getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("DD/MM/YY HH:MM:SS");
         Date d1 = null;
@@ -657,7 +659,8 @@ public class MainActivity extends AppCompatActivity
         try {
             d1 = sdf.parse(String.valueOf(dateStart));
             d2 = sdf.parse(String.valueOf(dateStop));
-        } catch (ParseException e) {
+        }
+        catch (ParseException e) {
             e.printStackTrace();
         }
         double diff = d2.getTime() - d1.getTime();
@@ -667,7 +670,11 @@ public class MainActivity extends AppCompatActivity
 
 
 
+
+
         result = diffHours + " : " + diffMinutes + " : " + diffSeconds;
+
+
 
     }
 }
