@@ -41,14 +41,12 @@
             android:label="@string/title_activity_list">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
             </intent-filter>
         </activity>
         <activity
             android:name=".SaveActivity"
-            android:label="@string/title_track_save">
-        </activity>
-
+            android:label="@string/title_track_save"></activity>
+        <activity android:name=".DetailViewActivity"></activity>
     </application>
 
 </manifest>

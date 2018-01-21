@@ -1,5 +1,6 @@
 package de.info3.lima1035.mydailyway;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -15,15 +16,22 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SaveActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
+    // length müssen wir noch berechnen
+    //duration rechnung lässt app abstürzen
     public String date = "";
     public String duration = "";
     public String length = "";
+    public String trackName = "";
+    public String traffic = "";
+    public String wayPurpose = "";
+    public String location = "";
 
     public static boolean chooseW;
     public static boolean chooseB;
@@ -33,11 +41,14 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.track_save_drawer);
 
+        //hinzufügen editText_track_name + abspeichern in trackName (schon vorhandener String
         Button buttonSave= (Button) findViewById(R.id.button_save);
         Button buttonCancel= (Button) findViewById(R.id.button_cancel);
 
@@ -58,6 +69,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
 
         length = getIntent().getExtras().getString("KEY_LENGTH");
         TextView textLength = (TextView) findViewById(R.id.textView_length_show);
+        textLength.setText(length);
 
 
         Spinner wayPurposeSpinner;
@@ -69,17 +81,22 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
         list.add("Heimweg");
         list.add("Freizeit");
 
-        //weis nicht ob nötig
+        //weis nicht ob nötig && wie bekomme ich den wert in die db
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         wayPurposeSpinner.setAdapter(dataAdapter);
 
+
+        //Daten des Spinners in wayDuration speichern
+        //wayDuration ist ein String und schon deklariert
+
+
         FloatingActionButton walkSave = (FloatingActionButton) findViewById(R.id.floatingActionButton_walk_save);
         FloatingActionButton bikeSave = (FloatingActionButton) findViewById(R.id.floatingActionButtonBikeSave);
         FloatingActionButton carSave = (FloatingActionButton) findViewById(R.id.floatingActionButtonCarSave);
         FloatingActionButton busSave = (FloatingActionButton) findViewById(R.id.floatingActionButtonBusSave);
-        FloatingActionButton trainSave = (FloatingActionButton) findViewById(R.id.floatingActionButtonTrainSave);
+        final FloatingActionButton trainSave = (FloatingActionButton) findViewById(R.id.floatingActionButtonTrainSave);
         FloatingActionButton walkSaveGR = (FloatingActionButton) findViewById(R.id.floatingActionButtonWalkSaveGR);
         FloatingActionButton bikeSaveGR = (FloatingActionButton) findViewById(R.id.floatingActionButtonBikeSaveGR);
         FloatingActionButton carSaveGR = (FloatingActionButton) findViewById(R.id.floatingActionButtonCarSaveGR);
@@ -107,6 +124,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
 
 
 
+    //die Strings 1-31 müssen noch mit den jeweiligen Verkehrsmitteln im String benannt werden  (Bsp. im 1. if)
 
 
         if (chooseW == true && chooseB == true && chooseC == true && chooseBu == true &&chooseT == true){
@@ -125,6 +143,8 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             trainSave.show();
             chooseT = false;
             trainSaveGR.hide();
+
+            traffic = "Fuß, Fahrrad, Auto, Bus und Bahn";
         }
         else if (chooseW == true&&chooseB == true && chooseBu == true && chooseT == true){
             walkSave.show();
@@ -141,6 +161,8 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             trainSaveGR.hide();
             carSave.hide();
             carSaveGR.show();
+
+            traffic = "2";
         }
         else if (chooseW == true && chooseB == true && chooseC == true && chooseBu == true){
             walkSave.show();
@@ -157,6 +179,8 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             busSaveGR.hide();
             trainSaveGR.show();
             trainSave.hide();
+
+            traffic = "3";
 
         }
         else if (chooseW == true && chooseB == true && chooseC == true && chooseT== true){
@@ -175,6 +199,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             busSaveGR.show();
             busSave.hide();
 
+            traffic = "4";
         }
         else if(chooseW == true&& chooseC == true&& chooseBu == true && chooseT == true){
             walkSave.show();
@@ -191,6 +216,8 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             trainSaveGR.hide();
             bikeSave.hide();
             bikeSaveGR.show();
+
+            traffic = "5";
         }
         else if (chooseW == true&& chooseC == true&& chooseT == true ){
             walkSave.show();
@@ -206,6 +233,8 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             busSave.hide();
             bikeSaveGR.show();
             busSaveGR.show();
+
+            traffic = "6";
         }
        else if (chooseW == true&& chooseB == true&& chooseT == true ){
             walkSave.show();
@@ -221,6 +250,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             busSave.hide();
             bikeSaveGR.show();
             busSaveGR.show();
+            traffic = "7";
         }
        else if (chooseW == true&& chooseB == true&& chooseBu == true ){
             walkSave.show();
@@ -237,7 +267,8 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             trainSave.hide();
             carSaveGR.show();
             trainSaveGR.show();
-        }
+            traffic = "8";
+       }
         else if(chooseW == true&& chooseC == true&& chooseBu == true ){
            walkSave.show();
             chooseW = false;
@@ -252,6 +283,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             trainSave.hide();
             bikeSaveGR.show();
             trainSaveGR.show();
+            traffic = "9";
         }
 
 
@@ -269,6 +301,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             carSave.hide();
             bikeSaveGR.show();
             carSaveGR.show();
+            traffic = "10";
         }
         else if (chooseW == true && chooseB == true && chooseC == true){
             walkSave.show();
@@ -284,7 +317,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             trainSave.hide();
             busSaveGR.show();
             trainSaveGR.show();
-
+            traffic = "11";
         }
         else  if (chooseW == true && chooseB == true){
             walkSave.show();
@@ -299,7 +332,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             carSaveGR.show();
             busSaveGR.show();
             trainSaveGR.show();
-
+            traffic = "12";
         }
         else if(chooseW == true&& chooseC == true){
             walkSave.show();
@@ -315,7 +348,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             bikeSaveGR.show();
             busSaveGR.show();
             trainSaveGR.show();
-        }
+            traffic = "13";}
 
         else if(chooseW == true&& chooseBu == true){
             walkSave.show();
@@ -330,7 +363,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             bikeSaveGR.show();
             carSaveGR.show();
             trainSaveGR.show();
-        }
+            traffic = "14";}
         else if(chooseW == true&& chooseT == true){
             walkSave.show();
             chooseW = false;
@@ -344,7 +377,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             bikeSaveGR.show();
             carSaveGR.show();
             busSaveGR.show();
-        }
+            traffic = "15";}
         else if(chooseW == true){
             walkSave.show();
             chooseW = false;
@@ -357,7 +390,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             carSave.hide();
             busSave.hide();
             trainSave.hide();
-
+            traffic = "16";
         }
 
         else if(chooseB == true&& chooseC == true&& chooseBu == true&&chooseT == true){
@@ -375,7 +408,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             trainSaveGR.hide();
             walkSave.hide();
             walkSaveGR.show();
-        }
+            traffic = "17";}
         else if (chooseB == true&& chooseC == true&&chooseT == true){
             bikeSave.show();
             chooseB = false;
@@ -390,7 +423,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             walkSaveGR.show();
             busSave.hide();
             busSaveGR.show();
-        }
+            traffic = "18";}
 
         else  if(chooseB == true&& chooseBu == true&&chooseT == true){
            bikeSave.show();
@@ -406,7 +439,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             carSave.hide();
             walkSaveGR.show();
             carSaveGR.show();
-        }
+            traffic = "19";        }
         else if(chooseB == true&& chooseC == true&& chooseBu == true){
             bikeSave.show();
             chooseB = false;
@@ -422,7 +455,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             trainSave.hide();
             walkSaveGR.show();
             trainSaveGR.show();
-        }
+            traffic = "20";}
         else if(chooseB == true&&chooseT == true){
            bikeSave.show();
             chooseB = false;
@@ -436,7 +469,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             walkSaveGR.show();
             carSaveGR.show();
             busSaveGR.show();
-        }
+            traffic = "21";}
         else if(chooseB == true&& chooseBu == true){
             bikeSave.show();
             chooseB = false;
@@ -450,7 +483,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             walkSaveGR.show();
             carSaveGR.show();
             trainSaveGR.show();
-        }
+            traffic = "22";}
         else if(chooseB == true&& chooseC == true){
             bikeSave.show();
             chooseB = false;
@@ -464,7 +497,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             walkSaveGR.show();
             busSaveGR.show();
             trainSaveGR.show();
-        }
+            traffic = "23";}
         else if(chooseB == true){
             bikeSave.show();
             chooseB = false;
@@ -477,7 +510,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             carSaveGR.show();
             busSaveGR.show();
             trainSaveGR.show();
-        }
+            traffic = "24";}
 
 
         else if (chooseC == true&&chooseBu == true&&chooseT == true) {
@@ -494,7 +527,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             bikeSave.hide();
             walkSaveGR.show();
             bikeSaveGR.show();
-        }
+            traffic = "25";}
         else if (chooseC == true&&chooseBu == true){
             carSave.show();
             chooseC = false;
@@ -508,7 +541,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             walkSaveGR.show();
             bikeSaveGR.show();
             trainSaveGR.show();
-        }
+            traffic = "26";}
         else if (chooseC == true&&chooseT == true) {
            carSave.show();
             chooseC = false;
@@ -522,7 +555,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             walkSaveGR.show();
             bikeSaveGR.show();
             busSaveGR.show();
-
+            traffic = "27";
         }
         else if (chooseC == true){
            carSave.show();
@@ -537,7 +570,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             bikeSaveGR.show();
             busSaveGR.show();
             trainSaveGR.show();
-        }
+            traffic = "28";}
 
         else if (chooseBu == true&&chooseT == true) {
             busSave.show();
@@ -552,7 +585,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             walkSaveGR.show();
             bikeSaveGR.show();
             carSaveGR.show();
-        }
+            traffic = "29";}
         else if (chooseBu == true) {
            busSave.show();
             chooseBu = false;
@@ -565,7 +598,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             bikeSaveGR.show();
             carSaveGR.show();
             trainSaveGR.show();
-        }
+            traffic = "30";}
 
         else if (chooseT == true){
             trainSave.show();
@@ -579,15 +612,27 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             bikeSaveGR.show();
             carSaveGR.show();
             busSaveGR.show();
-        }
+            traffic = "31";}
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Tracking tracking = new Tracking();
-                tracking.setDate(date);
-                tracking.setLocation("Location");
+
+
+                Tracking track = new Tracking();
+                track.setDate(date);
+                track.setDuration(duration);
+                track.setName(trackName);
+                track.setTraffic(traffic);
+                track.setWayPurpose(wayPurpose);
+                track.setLocation(location);
+                track.setLength(length);
+
+                Toast.makeText(SaveActivity.this, "Track gespeichert", Toast.LENGTH_LONG).show();
+                DbHelper.getInstance(SaveActivity.this).saveTracking(track);
+
+
 
 
                 Intent intentListView = new Intent(SaveActivity.this, ListActivity.class);

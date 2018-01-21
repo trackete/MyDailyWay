@@ -26,6 +26,46 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_aktivitiy_drawer);
 
+        //Datenbank name des Tracks und datum auslesen und anzeigen?
+
+        // Platz in der Datenbank
+        int location =1;
+
+        //in on click von list eintrag
+       /* Intent intentSave = new Intent(ListActivity.this,DetailViewActivity.class);
+        intentSave.putExtra("KEY_DATE", location);*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

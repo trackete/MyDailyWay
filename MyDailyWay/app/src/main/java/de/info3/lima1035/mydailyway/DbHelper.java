@@ -38,28 +38,30 @@ public class DbHelper extends SQLiteOpenHelper {
 
 
     //?????????????????location oder Tracking ??????????????????
-    public void saveTracking(Tracking location){
+    public void saveTracking(Tracking track){
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues valuesLocation = new ContentValues();
-        valuesLocation.put(DbContract.LocationTable.COLUMN_NAME_DATE, location.getDate());
-        valuesLocation.put(DbContract.LocationTable.COLUMN_NAME_DURATION, location.getDuration());
-        valuesLocation.put(DbContract.LocationTable.COLUMN_NAME_TRAFFIC, location.getTraffic());
-        valuesLocation.put(DbContract.LocationTable.COLUMN_NAME_NAME, location.getName());
-        valuesLocation.put(DbContract.LocationTable.COLUMN_NAME_LOC, location.getLocation());
+        ContentValues valuesTrack = new ContentValues();
+        valuesTrack.put(DbContract.TrackTable.COLUMN_NAME_DATE, track.getDate());
+        valuesTrack.put(DbContract.TrackTable.COLUMN_NAME_DURATION, track.getDuration());
+        valuesTrack.put(DbContract.TrackTable.COLUMN_NAME_LENGTH, track.getLength());
+        valuesTrack.put(DbContract.TrackTable.COLUMN_NAME_TRAFFIC, track.getTraffic());
+        valuesTrack.put(DbContract.TrackTable.COLUMN_NAME_NAME, track.getName());
+        valuesTrack.put(DbContract.TrackTable.COLUMN_NAME_LOC, track.getLocation());
+        valuesTrack.put(DbContract.TrackTable.COLUMN_NAME_WAY_PURPOSE, track.getWayPurpose());
 
 
-        db.insert(DbContract.LocationTable.TABLE_NAME,null,valuesLocation);
+        db.insert(DbContract.TrackTable.TABLE_NAME,null,valuesTrack);
 
         db.close();
 
     }
 
     //?????????????????location oder Tracking ??????????????????
-    public void insertLocation(){
+    public void geTrackData(){
 
-        String selectQuery = "SELECT * FROM "+ DbContract.LocationTable.TABLE_NAME;
+        String selectQuery = "SELECT * FROM "+ DbContract.TrackTable.TABLE_NAME;
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -70,28 +72,31 @@ public class DbHelper extends SQLiteOpenHelper {
                 //cursor zeigt auf einen Eintrag in der Ergebnisliste
 
 
-                String date = cursor.getString(cursor.getColumnIndex(DbContract.LocationTable.COLUMN_NAME_DATE));
-                String duration = cursor.getString(cursor.getColumnIndex(DbContract.LocationTable.COLUMN_NAME_DURATION));
-                String traffic = cursor.getString(cursor.getColumnIndex(DbContract.LocationTable.COLUMN_NAME_TRAFFIC));
-                String name = cursor.getString(cursor.getColumnIndex(DbContract.LocationTable.COLUMN_NAME_NAME));
-                String location = cursor.getString(cursor.getColumnIndex(DbContract.LocationTable.COLUMN_NAME_LOC));
-
+                String date = cursor.getString(cursor.getColumnIndex(DbContract.TrackTable.COLUMN_NAME_DATE));
+                String duration = cursor.getString(cursor.getColumnIndex(DbContract.TrackTable.COLUMN_NAME_DURATION));
+                String length = cursor.getString(cursor.getColumnIndex(DbContract.TrackTable.COLUMN_NAME_LENGTH));
+                String traffic = cursor.getString(cursor.getColumnIndex(DbContract.TrackTable.COLUMN_NAME_TRAFFIC));
+                String name = cursor.getString(cursor.getColumnIndex(DbContract.TrackTable.COLUMN_NAME_NAME));
+                String location = cursor.getString(cursor.getColumnIndex(DbContract.TrackTable.COLUMN_NAME_LOC));
+                String wayPurpose = cursor.getString(cursor.getColumnIndex(DbContract.TrackTable.COLUMN_NAME_WAY_PURPOSE));
 
                // double lat = Double.parseDouble(latitude);
                // double lon = Double.parseDouble(longitude);
 
 
-                Tracking track = new Tracking();
+               /* Tracking track = new Tracking();
 
                 track.setDate(date);
                 track.setDuration(duration);
+                track.setDuration(length);
                 track.setTraffic(traffic);
                 track.setName(name);
                 track.setLocation(location);
+                track.setWayPurpose(wayPurpose);
 
 
 
-                LocationData.getInstance().save(track);
+                LocationData.getInstance().save(track);*/
 
             }while (cursor.moveToNext());
 

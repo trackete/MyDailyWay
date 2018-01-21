@@ -8,6 +8,8 @@ import java.util.ArrayList;
 public class Tracking {
 
 
+
+
     public Tracking() {
 
     }
@@ -65,4 +67,21 @@ public class Tracking {
         return location;
     }
 
+    public String wayPurpose;
+
+    public void setWayPurpose(String wayPurpose){
+        this.wayPurpose = wayPurpose;
+    }
+    public String getWayPurpose() {
+        return wayPurpose;
+    }
+
+    public  String length;
+
+    public void setLength(String length){
+        this.length = length;
+    }
+    public String getLength() {
+        return length;
+    }
 }
