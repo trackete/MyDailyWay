@@ -56,8 +56,9 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
         TextView textDate = (TextView) findViewById(R.id.textView_date_show);
         textDate.setText(date);
 
-        length = getIntent().getExtras().getString(MainActivity.KEY_LENGTH);
+        length = getIntent().getExtras().getString("KEY_LENGTH");
         TextView textLength = (TextView) findViewById(R.id.textView_length_show);
+
 
         Spinner wayPurposeSpinner;
         wayPurposeSpinner = (Spinner) findViewById(R.id.spinner_way_purpuse);
@@ -125,7 +126,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             chooseT = false;
             trainSaveGR.hide();
         }
-        if (chooseW == true&&chooseB == true && chooseBu == true && chooseT == true){
+        else if (chooseW == true&&chooseB == true && chooseBu == true && chooseT == true){
             walkSave.show();
             chooseW = false;
             walkSaveGR.hide();
@@ -141,7 +142,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             carSave.hide();
             carSaveGR.show();
         }
-        if (chooseW == true && chooseB == true && chooseC == true && chooseBu == true){
+        else if (chooseW == true && chooseB == true && chooseC == true && chooseBu == true){
             walkSave.show();
             chooseW = false;
             walkSaveGR.hide();
@@ -158,7 +159,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             trainSave.hide();
 
         }
-        if (chooseW == true && chooseB == true && chooseC == true && chooseT== true){
+        else if (chooseW == true && chooseB == true && chooseC == true && chooseT== true){
             walkSave.show();
             chooseW = false;
             walkSaveGR.hide();
@@ -175,7 +176,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             busSave.hide();
 
         }
-        if(chooseW == true&& chooseC == true&& chooseBu == true && chooseT == true){
+        else if(chooseW == true&& chooseC == true&& chooseBu == true && chooseT == true){
             walkSave.show();
             chooseW = false;
             walkSaveGR.hide();
@@ -191,7 +192,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             bikeSave.hide();
             bikeSaveGR.show();
         }
-        if (chooseW == true&& chooseC == true&& chooseT == true ){
+        else if (chooseW == true&& chooseC == true&& chooseT == true ){
             walkSave.show();
             chooseW = false;
             walkSaveGR.hide();
@@ -206,7 +207,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             bikeSaveGR.show();
             busSaveGR.show();
         }
-        if (chooseW == true&& chooseB == true&& chooseT == true ){
+       else if (chooseW == true&& chooseB == true&& chooseT == true ){
             walkSave.show();
             chooseW = false;
             walkSaveGR.hide();
@@ -221,7 +222,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             bikeSaveGR.show();
             busSaveGR.show();
         }
-       if (chooseW == true&& chooseB == true&& chooseBu == true ){
+       else if (chooseW == true&& chooseB == true&& chooseBu == true ){
             walkSave.show();
             chooseW = false;
             walkSaveGR.hide();
@@ -237,7 +238,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             carSaveGR.show();
             trainSaveGR.show();
         }
-        if(chooseW == true&& chooseC == true&& chooseBu == true ){
+        else if(chooseW == true&& chooseC == true&& chooseBu == true ){
            walkSave.show();
             chooseW = false;
             walkSaveGR.hide();
@@ -254,7 +255,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
         }
 
 
-        if(chooseW == true&& chooseBu == true&& chooseT == true){
+       else if(chooseW == true&& chooseBu == true&& chooseT == true){
             walkSave.show();
             chooseW = false;
             walkSaveGR.hide();
@@ -269,7 +270,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             bikeSaveGR.show();
             carSaveGR.show();
         }
-        if (chooseW == true && chooseB == true && chooseC == true){
+        else if (chooseW == true && chooseB == true && chooseC == true){
             walkSave.show();
             chooseW = false;
             walkSaveGR.hide();
@@ -285,7 +286,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             trainSaveGR.show();
 
         }
-        if (chooseW == true && chooseB == true){
+        else  if (chooseW == true && chooseB == true){
             walkSave.show();
             chooseW = false;
             walkSaveGR.hide();
@@ -300,7 +301,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             trainSaveGR.show();
 
         }
-        if(chooseW == true&& chooseC == true){
+        else if(chooseW == true&& chooseC == true){
             walkSave.show();
             chooseW = false;
             walkSaveGR.hide();
@@ -316,7 +317,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             trainSaveGR.show();
         }
 
-        if(chooseW == true&& chooseBu == true){
+        else if(chooseW == true&& chooseBu == true){
             walkSave.show();
             chooseW = false;
             walkSaveGR.hide();
@@ -330,7 +331,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             carSaveGR.show();
             trainSaveGR.show();
         }
-        if(chooseW == true&& chooseT == true){
+        else if(chooseW == true&& chooseT == true){
             walkSave.show();
             chooseW = false;
             walkSaveGR.hide();
@@ -344,7 +345,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             carSaveGR.show();
             busSaveGR.show();
         }
-        if(chooseW == true){
+        else if(chooseW == true){
             walkSave.show();
             chooseW = false;
             walkSaveGR.hide();
@@ -359,7 +360,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
 
         }
 
-        if(chooseB == true&& chooseC == true&& chooseBu == true&&chooseT == true){
+        else if(chooseB == true&& chooseC == true&& chooseBu == true&&chooseT == true){
            bikeSave.show();
             chooseB = false;
             bikeSaveGR.hide();
@@ -375,7 +376,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             walkSave.hide();
             walkSaveGR.show();
         }
-        if (chooseB == true&& chooseC == true&&chooseT == true){
+        else if (chooseB == true&& chooseC == true&&chooseT == true){
             bikeSave.show();
             chooseB = false;
             bikeSaveGR.hide();
@@ -391,7 +392,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             busSaveGR.show();
         }
 
-        if(chooseB == true&& chooseBu == true&&chooseT == true){
+        else  if(chooseB == true&& chooseBu == true&&chooseT == true){
            bikeSave.show();
             chooseB = false;
             bikeSaveGR.hide();
@@ -406,7 +407,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             walkSaveGR.show();
             carSaveGR.show();
         }
-        if(chooseB == true&& chooseC == true&& chooseBu == true){
+        else if(chooseB == true&& chooseC == true&& chooseBu == true){
             bikeSave.show();
             chooseB = false;
             bikeSaveGR.hide();
@@ -422,7 +423,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             walkSaveGR.show();
             trainSaveGR.show();
         }
-        if(chooseB == true&&chooseT == true){
+        else if(chooseB == true&&chooseT == true){
            bikeSave.show();
             chooseB = false;
             bikeSaveGR.hide();
@@ -436,7 +437,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             carSaveGR.show();
             busSaveGR.show();
         }
-        if(chooseB == true&& chooseBu == true){
+        else if(chooseB == true&& chooseBu == true){
             bikeSave.show();
             chooseB = false;
             bikeSaveGR.hide();
@@ -450,7 +451,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             carSaveGR.show();
             trainSaveGR.show();
         }
-        if(chooseB == true&& chooseC == true){
+        else if(chooseB == true&& chooseC == true){
             bikeSave.show();
             chooseB = false;
             bikeSaveGR.hide();
@@ -464,7 +465,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             busSaveGR.show();
             trainSaveGR.show();
         }
-        if(chooseB == true){
+        else if(chooseB == true){
             bikeSave.show();
             chooseB = false;
             bikeSaveGR.hide();
@@ -479,7 +480,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
         }
 
 
-        if (chooseC == true&&chooseBu == true&&chooseT == true) {
+        else if (chooseC == true&&chooseBu == true&&chooseT == true) {
             carSave.show();
             chooseC = false;
             carSaveGR.hide();
@@ -494,7 +495,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             walkSaveGR.show();
             bikeSaveGR.show();
         }
-       if (chooseC == true&&chooseBu == true){
+        else if (chooseC == true&&chooseBu == true){
             carSave.show();
             chooseC = false;
             carSaveGR.hide();
@@ -508,7 +509,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             bikeSaveGR.show();
             trainSaveGR.show();
         }
-        if (chooseC == true&&chooseT == true) {
+        else if (chooseC == true&&chooseT == true) {
            carSave.show();
             chooseC = false;
             carSaveGR.hide();
@@ -523,7 +524,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             busSaveGR.show();
 
         }
-        if (chooseC == true){
+        else if (chooseC == true){
            carSave.show();
             chooseC = false;
             carSaveGR.hide();
@@ -538,7 +539,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             trainSaveGR.show();
         }
 
-        if (chooseBu == true&&chooseT == true) {
+        else if (chooseBu == true&&chooseT == true) {
             busSave.show();
             chooseBu = false;
             busSaveGR.hide();
@@ -552,7 +553,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             bikeSaveGR.show();
             carSaveGR.show();
         }
-        if (chooseBu == true) {
+        else if (chooseBu == true) {
            busSave.show();
             chooseBu = false;
             busSaveGR.hide();
@@ -566,7 +567,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             trainSaveGR.show();
         }
 
-        if (chooseT == true){
+        else if (chooseT == true){
             trainSave.show();
             chooseT = false;
             trainSaveGR.hide();

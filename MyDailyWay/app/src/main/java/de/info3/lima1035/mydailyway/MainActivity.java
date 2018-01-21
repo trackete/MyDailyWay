@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity
         car.hide();
 
 
-//Problem: wenn einer der Buttons gedrückt wird bevor Start -> Button anzeigen
+
         chooseWalk = false;
         chooseBike = false;
         chooseCar = false;
@@ -173,28 +173,28 @@ public class MainActivity extends AppCompatActivity
                     chooseCar = false;
                     chooseBus = false;
                 }
-                if (chooseTrafficWalk.isShown()){
+                else if (chooseTrafficWalk.isShown()){
                     chooseWalk = true;
                     chooseBike = false;
                     chooseCar = false;
                     chooseBus = false;
                     chooseTrain = false;
                 }
-                if (chooseTrafficBike.isShown()){
+                else if (chooseTrafficBike.isShown()){
                     chooseBike = true;
                     chooseCar = false;
                     chooseBus = false;
                     chooseTrain = false;
                     chooseWalk = false;
                 }
-                if (chooseTrafficCar.isShown()){
+                else if (chooseTrafficCar.isShown()){
                     chooseCar = true;
                     chooseBike = false;
                     chooseBus = false;
                     chooseTrain = false;
                     chooseWalk = false;
                 }
-                if (chooseTrafficBus.isShown()){
+                else if (chooseTrafficBus.isShown()){
                     chooseBus = true;
                     chooseCar = false;
                     chooseBike = false;
@@ -224,7 +224,7 @@ public class MainActivity extends AppCompatActivity
                 Intent intentSave = new Intent(MainActivity.this,SaveActivity.class);
                 intentSave.putExtra("KEY_DATE", date);
                 intentSave.putExtra("KEY_DURATION", result);
-                //intentSave.putExtra(KEY_LENGTH,length);
+                //intentSave.putExtra("KEY_LENGTH",length);
                 startActivity(intentSave);
 
 
