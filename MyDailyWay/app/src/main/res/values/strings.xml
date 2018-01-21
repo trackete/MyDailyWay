@@ -53,6 +53,7 @@
         <item>Freizeit</item>
     </string-array>
 
+    <string name="used_traffic">Benutzte Verkehrsmittel: </string>
 
 
 </resources>

@@ -128,4 +128,129 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_duration" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton_walk_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="62dp"
+        android:clickable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_way_purpuse"
+        app:srcCompat="@drawable/ic_action_people" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButtonBikeSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="62dp"
+        android:clickable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_way_purpuse"
+        app:srcCompat="@drawable/ic_action_bike" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButtonCarSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="62dp"
+        android:clickable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_way_purpuse"
+        app:srcCompat="@drawable/ic_action_car" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButtonBusSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="170dp"
+        android:layout_marginTop="62dp"
+        android:clickable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_way_purpuse"
+        app:srcCompat="@drawable/ic_action_bus" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButtonTrainSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="62dp"
+        android:clickable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_way_purpuse"
+        app:srcCompat="@drawable/ic_action_train" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButtonWalkSaveGR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="62dp"
+        android:clickable="true"
+        app:backgroundTint="@color/wallet_bright_foreground_disabled_holo_light"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_way_purpuse"
+        app:srcCompat="@drawable/ic_action_people" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButtonBikeSaveGR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="62dp"
+        android:clickable="true"
+        app:backgroundTint="@color/wallet_bright_foreground_disabled_holo_light"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_way_purpuse"
+        app:srcCompat="@drawable/ic_action_bike" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButtonCarSaveGR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="62dp"
+        android:clickable="true"
+        app:backgroundTint="@color/wallet_bright_foreground_disabled_holo_light"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_way_purpuse"
+        app:srcCompat="@drawable/ic_action_car" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButtonBusSaveGR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="170dp"
+        android:layout_marginTop="62dp"
+        android:clickable="true"
+        app:backgroundTint="@color/wallet_bright_foreground_disabled_holo_light"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_way_purpuse"
+        app:srcCompat="@drawable/ic_action_bus" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButtonTrainSaveGR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="62dp"
+        android:clickable="true"
+        app:backgroundTint="@color/wallet_bright_foreground_disabled_holo_light"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_way_purpuse"
+        app:srcCompat="@drawable/ic_action_train" />
+
+    <TextView
+        android:id="@+id/textViewUsedTraffic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/used_traffic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_way_purpuse" />
+
 </android.support.constraint.ConstraintLayout>

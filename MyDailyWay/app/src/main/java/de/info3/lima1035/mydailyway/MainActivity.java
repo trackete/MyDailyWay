@@ -25,7 +25,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
 
 
 import com.google.android.gms.common.ConnectionResult;
@@ -53,8 +52,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import static android.provider.Contacts.SettingsColumns.KEY;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback{
@@ -91,6 +88,12 @@ public class MainActivity extends AppCompatActivity
     private String result;
     private String length;
 
+    public static boolean chooseWalk;
+    public static boolean chooseCar;
+    public static boolean chooseTrain;
+    public static boolean chooseBus;
+    public static boolean chooseBike;
+    private boolean start;
 
     //on Create:
     @Override
@@ -137,6 +140,19 @@ public class MainActivity extends AppCompatActivity
         car.hide();
 
 
+//Problem: wenn einer der Buttons gedrückt wird bevor Start -> Button anzeigen
+        chooseWalk = false;
+        chooseBike = false;
+        chooseCar = false;
+        chooseBus = false;
+        chooseTrain = false;
+
+        start = false;
+
+
+
+
+
         //Markus Linnartz: Bei Click des Play-Buttons (Starten des Trackings)//
         startTracking.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,6 +164,43 @@ public class MainActivity extends AppCompatActivity
                 mMap.clear();
 
                 dateStart = Calendar.getInstance().getTime();
+
+                start = true;
+                if (chooseTrafficTrain.isShown()) {
+                    chooseTrain = true;
+                    chooseWalk = false;
+                    chooseBike = false;
+                    chooseCar = false;
+                    chooseBus = false;
+                }
+                if (chooseTrafficWalk.isShown()){
+                    chooseWalk = true;
+                    chooseBike = false;
+                    chooseCar = false;
+                    chooseBus = false;
+                    chooseTrain = false;
+                }
+                if (chooseTrafficBike.isShown()){
+                    chooseBike = true;
+                    chooseCar = false;
+                    chooseBus = false;
+                    chooseTrain = false;
+                    chooseWalk = false;
+                }
+                if (chooseTrafficCar.isShown()){
+                    chooseCar = true;
+                    chooseBike = false;
+                    chooseBus = false;
+                    chooseTrain = false;
+                    chooseWalk = false;
+                }
+                if (chooseTrafficBus.isShown()){
+                    chooseBus = true;
+                    chooseCar = false;
+                    chooseBike = false;
+                    chooseTrain = false;
+                    chooseWalk = false;
+                }
             }
         });
 
@@ -173,6 +226,8 @@ public class MainActivity extends AppCompatActivity
                 intentSave.putExtra("KEY_DURATION", result);
                 //intentSave.putExtra(KEY_LENGTH,length);
                 startActivity(intentSave);
+
+
 
             }
         });
@@ -287,6 +342,12 @@ public class MainActivity extends AppCompatActivity
                 bus.hide();
                 train.hide();
                 car.hide();
+
+
+                if (start == true) {
+                    chooseWalk = true;
+                }
+
             }
         });
 
@@ -302,6 +363,10 @@ public class MainActivity extends AppCompatActivity
                 bus.hide();
                 train.hide();
                 car.hide();
+
+                if (start == true) {
+                    chooseBike = true;
+                }
             }
         });
 
@@ -317,6 +382,10 @@ public class MainActivity extends AppCompatActivity
                 bus.hide();
                 train.hide();
                 car.hide();
+
+                if (start == true) {
+                    chooseBus = true;
+                }
             }
         });
 
@@ -332,6 +401,10 @@ public class MainActivity extends AppCompatActivity
                 bus.hide();
                 train.hide();
                 car.hide();
+
+                if (start == true) {
+                    chooseTrain = true;
+                }
             }
         });
 
@@ -347,6 +420,10 @@ public class MainActivity extends AppCompatActivity
                 bus.hide();
                 train.hide();
                 car.hide();
+
+                if (start == true) {
+                    chooseCar = true;
+                }
             }
         });
 
@@ -513,8 +590,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-        LatLng karlsruhe = new LatLng(49.008085, 8.403756);
-        mMap.addMarker(new MarkerOptions().position(karlsruhe).title("Marker in Karlsruhe"));
+
 
 
     }
