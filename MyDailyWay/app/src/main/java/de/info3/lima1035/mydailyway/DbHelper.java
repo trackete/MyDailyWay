@@ -9,6 +9,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DbHelper extends SQLiteOpenHelper {
 
+    private static final int DB_VERSION = 1;
+    private static final String DB_NAME = "user_db";
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DbContract.SQL_CREATE_LOCATION_TABLE);
@@ -25,7 +28,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     private DbHelper(Context context){
 
-        super(context, "location_db", null,1);
+        super(context, DB_NAME, null,DB_VERSION);
     }
 
     public static DbHelper getInstance(Context context){
@@ -43,6 +46,7 @@ public class DbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues valuesTrack = new ContentValues();
+
         valuesTrack.put(DbContract.TrackTable.COLUMN_NAME_DATE, track.getDate());
         valuesTrack.put(DbContract.TrackTable.COLUMN_NAME_DURATION, track.getDuration());
         valuesTrack.put(DbContract.TrackTable.COLUMN_NAME_LENGTH, track.getLength());

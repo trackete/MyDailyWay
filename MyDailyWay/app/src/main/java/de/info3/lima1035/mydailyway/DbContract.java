@@ -27,13 +27,13 @@ public class DbContract {
     }
 
     public static final String SQL_CREATE_LOCATION_TABLE =
-            "CREATE TABLE " + TrackTable.TABLE_NAME + "(" +
+            "CREATE TABLE " + TrackTable.TABLE_NAME + " (" +
                     TrackTable._ID + " INTEGER PRIMARY KEY," +
-                    TrackTable.COLUMN_NAME_DATE + " Text," +
-                    TrackTable.COLUMN_NAME_DURATION + " Text," +
-                    TrackTable.COLUMN_NAME_LENGTH + " Text," +
-                    TrackTable.COLUMN_NAME_TRAFFIC + " Text," +
-                    TrackTable.COLUMN_NAME_NAME + " Text" +
-                    TrackTable.COLUMN_NAME_WAY_PURPOSE + " Text" +
-                    TrackTable.COLUMN_NAME_LOC + " Text";
+                    TrackTable.COLUMN_NAME_DATE + " TEXT," +
+                    TrackTable.COLUMN_NAME_DURATION + " TEXT," +
+                    TrackTable.COLUMN_NAME_LENGTH + " TEXT," +
+                    TrackTable.COLUMN_NAME_TRAFFIC + " TEXT," +
+                    TrackTable.COLUMN_NAME_NAME + " TEXT," +
+                    TrackTable.COLUMN_NAME_WAY_PURPOSE + " TEXT," +
+                    TrackTable.COLUMN_NAME_LOC + " TEXT)";
 }
