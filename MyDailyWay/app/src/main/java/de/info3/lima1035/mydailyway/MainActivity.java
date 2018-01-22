@@ -218,7 +218,7 @@ public class MainActivity extends AppCompatActivity
                 Date cDate = new Date();
                 String date = new SimpleDateFormat("dd.MM.yyyy").format(cDate);
 
-               //durationCalc();
+                //durationCalc();
                 result = "hallo";
 
                 Intent intentSave = new Intent(MainActivity.this,SaveActivity.class);
@@ -741,9 +741,9 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         }
         double diff = d2.getTime() - d1.getTime();
-        double diffSeconds = diff / 1000;
-        double diffMinutes = diff / (60 * 1000);
-        double diffHours = diff / (60 * 60 * 1000);
+        double diffSeconds = diff / 1000 % 60;
+        double diffMinutes = diff / (60 * 1000) % 60;
+        double diffHours = diff / (60 * 60 * 1000) % 60;
 
 
 

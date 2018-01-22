@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +49,9 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.track_save_drawer);
 
+        EditText name = (EditText) findViewById(R.id.editText_trackName);
+        trackName = name.getText().toString();
+
         //hinzufügen editText_track_name + abspeichern in trackName (schon vorhandener String
         Button buttonSave= (Button) findViewById(R.id.button_save);
         Button buttonCancel= (Button) findViewById(R.id.button_cancel);
@@ -81,27 +85,28 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
         list.add("Heimweg");
         list.add("Freizeit");
 
-        //weis nicht ob nötig && wie bekomme ich den wert in die db
+
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         wayPurposeSpinner.setAdapter(dataAdapter);
 
-
-        //Daten des Spinners in wayDuration speichern
-        //wayDuration ist ein String und schon deklariert
+        wayPurpose = wayPurposeSpinner.getSelectedItem().toString();
 
 
-        FloatingActionButton walkSave = (FloatingActionButton) findViewById(R.id.floatingActionButton_walk_save);
-        FloatingActionButton bikeSave = (FloatingActionButton) findViewById(R.id.floatingActionButtonBikeSave);
-        FloatingActionButton carSave = (FloatingActionButton) findViewById(R.id.floatingActionButtonCarSave);
-        FloatingActionButton busSave = (FloatingActionButton) findViewById(R.id.floatingActionButtonBusSave);
-        final FloatingActionButton trainSave = (FloatingActionButton) findViewById(R.id.floatingActionButtonTrainSave);
-        FloatingActionButton walkSaveGR = (FloatingActionButton) findViewById(R.id.floatingActionButtonWalkSaveGR);
-        FloatingActionButton bikeSaveGR = (FloatingActionButton) findViewById(R.id.floatingActionButtonBikeSaveGR);
-        FloatingActionButton carSaveGR = (FloatingActionButton) findViewById(R.id.floatingActionButtonCarSaveGR);
-        FloatingActionButton busSaveGR = (FloatingActionButton) findViewById(R.id.floatingActionButtonBusSaveGR);
-        FloatingActionButton trainSaveGR = (FloatingActionButton) findViewById(R.id.floatingActionButtonTrainSaveGR);
+
+
+
+        final FloatingActionButton walkSave = (FloatingActionButton) findViewById(R.id.floatingActionButton_walk_save);
+        final FloatingActionButton bikeSave = (FloatingActionButton) findViewById(R.id.floatingActionButtonBikeSave);
+        final FloatingActionButton carSave = (FloatingActionButton) findViewById(R.id.floatingActionButtonCarSave);
+        final FloatingActionButton busSave = (FloatingActionButton) findViewById(R.id.floatingActionButtonBusSave);
+        final  FloatingActionButton trainSave = (FloatingActionButton) findViewById(R.id.floatingActionButtonTrainSave);
+        final FloatingActionButton walkSaveGR = (FloatingActionButton) findViewById(R.id.floatingActionButtonWalkSaveGR);
+        final  FloatingActionButton bikeSaveGR = (FloatingActionButton) findViewById(R.id.floatingActionButtonBikeSaveGR);
+        final FloatingActionButton carSaveGR = (FloatingActionButton) findViewById(R.id.floatingActionButtonCarSaveGR);
+        final FloatingActionButton busSaveGR = (FloatingActionButton) findViewById(R.id.floatingActionButtonBusSaveGR);
+        final FloatingActionButton trainSaveGR = (FloatingActionButton) findViewById(R.id.floatingActionButtonTrainSaveGR);
 
 
 
@@ -144,7 +149,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             chooseT = false;
             trainSaveGR.hide();
 
-            traffic = "Fuß, Fahrrad, Auto, Bus und Bahn";
+            traffic = "Fuß, Fahrrad, Auto, Bus, Bahn";
         }
         else if (chooseW == true&&chooseB == true && chooseBu == true && chooseT == true){
             walkSave.show();
@@ -162,7 +167,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             carSave.hide();
             carSaveGR.show();
 
-            traffic = "Fuß, Fahrrad, Bus und Bahn";
+            traffic = "Fuß, Fahrrad, Bus, Bahn";
         }
         else if (chooseW == true && chooseB == true && chooseC == true && chooseBu == true){
             walkSave.show();
@@ -180,7 +185,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             trainSaveGR.show();
             trainSave.hide();
 
-            traffic = "3";
+            traffic = "Fuß, Fahrrad, Auto, Bus";
 
         }
         else if (chooseW == true && chooseB == true && chooseC == true && chooseT== true){
@@ -199,7 +204,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             busSaveGR.show();
             busSave.hide();
 
-            traffic = "4";
+            traffic = "Fuß, Fahrrad, Auto, Bahn";
         }
         else if(chooseW == true&& chooseC == true&& chooseBu == true && chooseT == true){
             walkSave.show();
@@ -217,7 +222,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             bikeSave.hide();
             bikeSaveGR.show();
 
-            traffic = "5";
+            traffic = "Fuß, Auto, Bus, Bahn";
         }
         else if (chooseW == true&& chooseC == true&& chooseT == true ){
             walkSave.show();
@@ -234,7 +239,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             bikeSaveGR.show();
             busSaveGR.show();
 
-            traffic = "6";
+            traffic = "Fuß, Auto, Bahn";
         }
        else if (chooseW == true&& chooseB == true&& chooseT == true ){
             walkSave.show();
@@ -250,7 +255,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             busSave.hide();
             bikeSaveGR.show();
             busSaveGR.show();
-            traffic = "7";
+            traffic = "Fuß, Fahrrad, Bahn";
         }
        else if (chooseW == true&& chooseB == true&& chooseBu == true ){
             walkSave.show();
@@ -267,7 +272,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             trainSave.hide();
             carSaveGR.show();
             trainSaveGR.show();
-            traffic = "8";
+            traffic = "Fuß, Fahrrad, Bus";
        }
         else if(chooseW == true&& chooseC == true&& chooseBu == true ){
            walkSave.show();
@@ -283,7 +288,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             trainSave.hide();
             bikeSaveGR.show();
             trainSaveGR.show();
-            traffic = "9";
+            traffic = "Fuß, Auto, Bus";
         }
 
 
@@ -301,7 +306,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             carSave.hide();
             bikeSaveGR.show();
             carSaveGR.show();
-            traffic = "10";
+            traffic = "Fuß, Bus, Bahn";
         }
         else if (chooseW == true && chooseB == true && chooseC == true){
             walkSave.show();
@@ -317,7 +322,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             trainSave.hide();
             busSaveGR.show();
             trainSaveGR.show();
-            traffic = "11";
+            traffic = "Fuß, Fahrrad, Auto";
         }
         else  if (chooseW == true && chooseB == true){
             walkSave.show();
@@ -332,7 +337,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             carSaveGR.show();
             busSaveGR.show();
             trainSaveGR.show();
-            traffic = "12";
+            traffic = "Fuß, Fahrrad";
         }
         else if(chooseW == true&& chooseC == true){
             walkSave.show();
@@ -348,7 +353,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             bikeSaveGR.show();
             busSaveGR.show();
             trainSaveGR.show();
-            traffic = "13";}
+            traffic = "Fuß, Auto";}
 
         else if(chooseW == true&& chooseBu == true){
             walkSave.show();
@@ -363,7 +368,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             bikeSaveGR.show();
             carSaveGR.show();
             trainSaveGR.show();
-            traffic = "14";}
+            traffic = "Fuß, Bus";}
         else if(chooseW == true&& chooseT == true){
             walkSave.show();
             chooseW = false;
@@ -377,7 +382,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             bikeSaveGR.show();
             carSaveGR.show();
             busSaveGR.show();
-            traffic = "15";}
+            traffic = "Fuß, Bahn";}
         else if(chooseW == true){
             walkSave.show();
             chooseW = false;
@@ -390,7 +395,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             carSave.hide();
             busSave.hide();
             trainSave.hide();
-            traffic = "16";
+            traffic = "Fuß";
         }
 
         else if(chooseB == true&& chooseC == true&& chooseBu == true&&chooseT == true){
@@ -408,7 +413,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             trainSaveGR.hide();
             walkSave.hide();
             walkSaveGR.show();
-            traffic = "17";}
+            traffic = "Fahrrad, Auto, Bus, Bahn";}
         else if (chooseB == true&& chooseC == true&&chooseT == true){
             bikeSave.show();
             chooseB = false;
@@ -423,7 +428,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             walkSaveGR.show();
             busSave.hide();
             busSaveGR.show();
-            traffic = "18";}
+            traffic = "Fahrrad, Auto, Bahn";}
 
         else  if(chooseB == true&& chooseBu == true&&chooseT == true){
            bikeSave.show();
@@ -439,7 +444,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             carSave.hide();
             walkSaveGR.show();
             carSaveGR.show();
-            traffic = "19";        }
+            traffic = "Fahrrad, Bus, Bahn";}
         else if(chooseB == true&& chooseC == true&& chooseBu == true){
             bikeSave.show();
             chooseB = false;
@@ -455,7 +460,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             trainSave.hide();
             walkSaveGR.show();
             trainSaveGR.show();
-            traffic = "20";}
+            traffic = "Fahrrad, Auto, Bus,";}
         else if(chooseB == true&&chooseT == true){
            bikeSave.show();
             chooseB = false;
@@ -469,7 +474,8 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             walkSaveGR.show();
             carSaveGR.show();
             busSaveGR.show();
-            traffic = "21";}
+            traffic = "Fahrrad, Bahn";}
+
         else if(chooseB == true&& chooseBu == true){
             bikeSave.show();
             chooseB = false;
@@ -483,7 +489,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             walkSaveGR.show();
             carSaveGR.show();
             trainSaveGR.show();
-            traffic = "22";}
+            traffic = "Fahrrad, Bus";}
         else if(chooseB == true&& chooseC == true){
             bikeSave.show();
             chooseB = false;
@@ -497,7 +503,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             walkSaveGR.show();
             busSaveGR.show();
             trainSaveGR.show();
-            traffic = "23";}
+            traffic = "Fahrrad, Auto";}
         else if(chooseB == true){
             bikeSave.show();
             chooseB = false;
@@ -510,7 +516,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             carSaveGR.show();
             busSaveGR.show();
             trainSaveGR.show();
-            traffic = "24";}
+            traffic = "Fahrrad";}
 
 
         else if (chooseC == true&&chooseBu == true&&chooseT == true) {
@@ -527,7 +533,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             bikeSave.hide();
             walkSaveGR.show();
             bikeSaveGR.show();
-            traffic = "25";}
+            traffic = "Auto, Bus, Bahn";}
         else if (chooseC == true&&chooseBu == true){
             carSave.show();
             chooseC = false;
@@ -541,7 +547,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             walkSaveGR.show();
             bikeSaveGR.show();
             trainSaveGR.show();
-            traffic = "26";}
+            traffic = "Auto, Bus";}
         else if (chooseC == true&&chooseT == true) {
            carSave.show();
             chooseC = false;
@@ -555,7 +561,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             walkSaveGR.show();
             bikeSaveGR.show();
             busSaveGR.show();
-            traffic = "27";
+            traffic = "Auto, Bahn";
         }
         else if (chooseC == true){
            carSave.show();
@@ -570,7 +576,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             bikeSaveGR.show();
             busSaveGR.show();
             trainSaveGR.show();
-            traffic = "28";}
+            traffic = "Auto";}
 
         else if (chooseBu == true&&chooseT == true) {
             busSave.show();
@@ -585,7 +591,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             walkSaveGR.show();
             bikeSaveGR.show();
             carSaveGR.show();
-            traffic = "29";}
+            traffic = "Bus, Bahn";}
         else if (chooseBu == true) {
            busSave.show();
             chooseBu = false;
@@ -598,7 +604,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             bikeSaveGR.show();
             carSaveGR.show();
             trainSaveGR.show();
-            traffic = "30";}
+            traffic = "Bus";}
 
         else if (chooseT == true){
             trainSave.show();
@@ -612,7 +618,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             bikeSaveGR.show();
             carSaveGR.show();
             busSaveGR.show();
-            traffic = "31";}
+            traffic = "Bahn";}
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override

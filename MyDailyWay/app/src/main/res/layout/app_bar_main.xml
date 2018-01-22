@@ -142,19 +142,18 @@
         android:id="@+id/button_bus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
         android:layout_marginStart="15dp"
         android:clickable="true"
         app:fabSize="mini"
-        app:layout_constraintBottom_toTopOf="@+id/button_bike"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_action_bus" />
+        app:srcCompat="@drawable/ic_action_bus"
+        tools:layout_editor_absoluteY="336dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/button_train"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginStart="15dp"
         android:clickable="true"
         app:fabSize="mini"
@@ -166,11 +165,11 @@
         android:id="@+id/button_car"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="145dp"
         android:layout_marginStart="15dp"
         android:clickable="true"
         app:fabSize="mini"
-        app:layout_constraintBottom_toTopOf="@+id/button_train"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_action_car" />
 
