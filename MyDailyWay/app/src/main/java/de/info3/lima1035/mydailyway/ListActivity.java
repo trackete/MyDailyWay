@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,46 +27,27 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_aktivitiy_drawer);
-
-        //Datenbank name des Tracks und datum auslesen und anzeigen?
-
-        // Platz in der Datenbank
-        int location =1;
-
-        //in on click von list eintrag
-       /* Intent intentSave = new Intent(ListActivity.this,DetailViewActivity.class);
-        intentSave.putExtra("KEY_DATE", location);*/
+        LocationListViewAdapter locationListViewAdapter;
 
 
 
+        DbHelper.getInstance(ListActivity.this).geTrackData();
 
+        locationListViewAdapter = new LocationListViewAdapter(ListActivity.this,LocationData.getInstance().getLocationList());
+        ListView listView = (ListView) findViewById(R.id.id_list_view);
 
+        listView.setAdapter(locationListViewAdapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                Intent intent = new Intent(ListActivity.this, DetailViewActivity.class);
+                intent.putExtra("KEY_ID",position);
+                startActivity(intent);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            }
+        });
 
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -75,8 +58,8 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
 
         List<Tracking> list =LocationData.getInstance().getLocationList();
         Adapter = new LocationListViewAdapter(this,LocationData.getInstance().getLocationList());
-        ListView listView = (ListView) findViewById(R.id.id_list_view);
-        listView.setAdapter(Adapter);
+        ListView listView123 = (ListView) findViewById(R.id.id_list_view);
+        listView123.setAdapter(Adapter);
 
         // Enables Always-on
 
