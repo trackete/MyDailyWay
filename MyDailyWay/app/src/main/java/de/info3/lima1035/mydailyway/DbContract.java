@@ -24,7 +24,6 @@ public class DbContract {
 
 
 
-
     }
 
     public static final String SQL_CREATE_LOCATION_TABLE =
