@@ -9,6 +9,7 @@ public class DbContract {
 
     }
 
+
     public static class TrackTable implements BaseColumns {
 
         public static final String TABLE_NAME = "location_table";
