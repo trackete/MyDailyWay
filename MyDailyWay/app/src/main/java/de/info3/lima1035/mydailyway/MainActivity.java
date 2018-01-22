@@ -25,6 +25,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 
 import com.google.android.gms.common.ConnectionResult;
@@ -52,12 +53,21 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+
+import static android.provider.Contacts.SettingsColumns.KEY;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback{
 
     //Aktuelle Auswahl des Verkehrsmittels: 1=Fußgänger; 2=Fahrrad; 3=Bus; 4=Zug; 5=Auto//
     public static int chooseTraffic = 4;
+    public static boolean chooseBus;
+    public static boolean chooseCar;
+    public static boolean chooseBike;
+    public static boolean chooseWalk;
+    public static boolean chooseTrain;
     public boolean track = false;
     private GoogleMap mMap;
     private final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 123;
@@ -81,19 +91,13 @@ public class MainActivity extends AppCompatActivity
     public static final String KEY_DURATION = "key";
     public static final String KEY_LENGTH = "key";
 
-    private Date dateStart;
-    private Date dateStop;
+    private long dateStart;
+    private long dateStop;
 
 
     private String result;
     private String length;
 
-    public static boolean chooseWalk;
-    public static boolean chooseCar;
-    public static boolean chooseTrain;
-    public static boolean chooseBus;
-    public static boolean chooseBike;
-    private boolean start;
 
     //on Create:
     @Override
@@ -140,19 +144,6 @@ public class MainActivity extends AppCompatActivity
         car.hide();
 
 
-
-        chooseWalk = false;
-        chooseBike = false;
-        chooseCar = false;
-        chooseBus = false;
-        chooseTrain = false;
-
-        start = false;
-
-
-
-
-
         //Markus Linnartz: Bei Click des Play-Buttons (Starten des Trackings)//
         startTracking.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,44 +154,7 @@ public class MainActivity extends AppCompatActivity
                 mTracking = true;
                 mMap.clear();
 
-                dateStart = Calendar.getInstance().getTime();
-
-                start = true;
-                if (chooseTrafficTrain.isShown()) {
-                    chooseTrain = true;
-                    chooseWalk = false;
-                    chooseBike = false;
-                    chooseCar = false;
-                    chooseBus = false;
-                }
-                else if (chooseTrafficWalk.isShown()){
-                    chooseWalk = true;
-                    chooseBike = false;
-                    chooseCar = false;
-                    chooseBus = false;
-                    chooseTrain = false;
-                }
-                else if (chooseTrafficBike.isShown()){
-                    chooseBike = true;
-                    chooseCar = false;
-                    chooseBus = false;
-                    chooseTrain = false;
-                    chooseWalk = false;
-                }
-                else if (chooseTrafficCar.isShown()){
-                    chooseCar = true;
-                    chooseBike = false;
-                    chooseBus = false;
-                    chooseTrain = false;
-                    chooseWalk = false;
-                }
-                else if (chooseTrafficBus.isShown()){
-                    chooseBus = true;
-                    chooseCar = false;
-                    chooseBike = false;
-                    chooseTrain = false;
-                    chooseWalk = false;
-                }
+                dateStart = System.currentTimeMillis();
             }
         });
 
@@ -218,16 +172,20 @@ public class MainActivity extends AppCompatActivity
                 Date cDate = new Date();
                 String date = new SimpleDateFormat("dd.MM.yyyy").format(cDate);
 
+                dateStop = System.currentTimeMillis();
+
                 //durationCalc();
-                result = "hallo";
+                //result = "hallo";
+                long trackingPerformance = dateStop - dateStart;
+                String convertedTime =String.format(Locale.GERMAN,"%d min, %d sec",TimeUnit.MILLISECONDS.toMinutes(trackingPerformance),
+                        TimeUnit.MILLISECONDS.toSeconds(trackingPerformance)- TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(trackingPerformance)));
+                String result = " " + convertedTime + " ";
 
                 Intent intentSave = new Intent(MainActivity.this,SaveActivity.class);
                 intentSave.putExtra("KEY_DATE", date);
                 intentSave.putExtra("KEY_DURATION", result);
-                //intentSave.putExtra("KEY_LENGTH",length);
+                //intentSave.putExtra(KEY_LENGTH,length);
                 startActivity(intentSave);
-
-
 
             }
         });
@@ -342,12 +300,6 @@ public class MainActivity extends AppCompatActivity
                 bus.hide();
                 train.hide();
                 car.hide();
-
-
-                if (start == true) {
-                    chooseWalk = true;
-                }
-
             }
         });
 
@@ -363,10 +315,6 @@ public class MainActivity extends AppCompatActivity
                 bus.hide();
                 train.hide();
                 car.hide();
-
-                if (start == true) {
-                    chooseBike = true;
-                }
             }
         });
 
@@ -382,10 +330,6 @@ public class MainActivity extends AppCompatActivity
                 bus.hide();
                 train.hide();
                 car.hide();
-
-                if (start == true) {
-                    chooseBus = true;
-                }
             }
         });
 
@@ -401,10 +345,6 @@ public class MainActivity extends AppCompatActivity
                 bus.hide();
                 train.hide();
                 car.hide();
-
-                if (start == true) {
-                    chooseTrain = true;
-                }
             }
         });
 
@@ -420,10 +360,6 @@ public class MainActivity extends AppCompatActivity
                 bus.hide();
                 train.hide();
                 car.hide();
-
-                if (start == true) {
-                    chooseCar = true;
-                }
             }
         });
 
@@ -590,8 +526,8 @@ public class MainActivity extends AppCompatActivity
 
 
 
-
-
+        LatLng karlsruhe = new LatLng(49.008085, 8.403756);
+        mMap.addMarker(new MarkerOptions().position(karlsruhe).title("Marker in Karlsruhe"));
 
 
     }
@@ -725,7 +661,14 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    public void durationCalc(){
+    /*public void durationCalc(){
+        long trackingPerformance = dateStop - dateStart;
+        String convertedTime =String.format(Locale.GERMAN,"%d min, %d sec",TimeUnit.MILLISECONDS.toMinutes(trackingPerformance),
+                TimeUnit.MILLISECONDS.toSeconds(trackingPerformance)- TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(trackingPerformance)));
+        String result = "Dauer: " + convertedTime;
+    }
+        */
+        /*
 
         //Berechnung der Performance Dave
 
@@ -741,18 +684,11 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         }
         double diff = d2.getTime() - d1.getTime();
-        double diffSeconds = diff / 1000 % 60;
-        double diffMinutes = diff / (60 * 1000) % 60;
-        double diffHours = diff / (60 * 60 * 1000) % 60;
-
-
-
-
+        double diffSeconds = diff / 1000;
+        double diffMinutes = diff / (60 * 1000);
+        double diffHours = diff / (60 * 60 * 1000);
 
         result = diffHours + " : " + diffMinutes + " : " + diffSeconds;
-
-
-
-    }
+    }*/
 }
 
