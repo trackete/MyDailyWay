@@ -1,6 +1,5 @@
 package de.info3.lima1035.mydailyway;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;

@@ -6,4 +6,136 @@
     android:layout_height="match_parent"
     tools:context="de.info3.lima1035.mydailyway.DetailViewActivity">
 
+    <!--<fragment
+        android:id="@+id/mapdetailed"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="1.0"
+        tools:context="de.info3.lima1035.mydailyway.MapsActivity" />-->
+
+    <TextView
+        android:id="@+id/textViewNameDetailed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/namet"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewTrackNameDetailed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/textViewNameDetailed"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewDateDetailed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNameDetailed" />
+
+    <TextView
+        android:id="@+id/textViewTrackDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/textViewDateDetailed"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTrackNameDetailed" />
+
+    <TextView
+        android:id="@+id/textViewLengthDetailed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDateDetailed" />
+
+    <TextView
+        android:id="@+id/textViewTrackLength"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/lenght"
+        app:layout_constraintStart_toEndOf="@+id/textViewLengthDetailed"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTrackDate" />
+
+    <TextView
+        android:id="@+id/textViewDurationDetailed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/duration"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLengthDetailed" />
+
+    <TextView
+        android:id="@+id/textViewTrackDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/textViewDurationDetailed"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTrackLength" />
+
+    <TextView
+        android:id="@+id/textViewWayPurposeDetailed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/way_purpose"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDurationDetailed" />
+
+    <TextView
+        android:id="@+id/textViewTrackPurpose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="52dp"
+        android:layout_marginStart="4dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/textViewTrackTraffic"
+        app:layout_constraintStart_toEndOf="@+id/textViewWayPurposeDetailed" />
+
+    <TextView
+        android:id="@+id/textViewTrafficDetailed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/used_traffic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewWayPurposeDetailed" />
+
+    <TextView
+        android:id="@+id/textViewTrackTraffic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/textViewTrafficDetailed"
+        tools:layout_editor_absoluteY="196dp" />
+
 </android.support.constraint.ConstraintLayout>

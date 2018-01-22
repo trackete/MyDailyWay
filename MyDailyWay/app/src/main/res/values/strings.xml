@@ -43,6 +43,7 @@
     <string name="date">Datum:  </string>
     <string name="lenght">Länge der Strecke:  </string>
     <string name="way_purpose">Wegezweck:  </string>
+    <string name="namet">Trackname: </string>
 
 
     <string-array name="way_purpose_spinner">
