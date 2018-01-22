@@ -162,7 +162,7 @@ public class SaveActivity extends AppCompatActivity implements NavigationView.On
             carSave.hide();
             carSaveGR.show();
 
-            traffic = "2";
+            traffic = "Fuß, Fahrrad, Bus und Bahn";
         }
         else if (chooseW == true && chooseB == true && chooseC == true && chooseBu == true){
             walkSave.show();
