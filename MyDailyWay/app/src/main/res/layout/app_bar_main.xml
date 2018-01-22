@@ -143,10 +143,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="16dp"
         android:clickable="true"
         app:fabSize="mini"
-        app:layout_constraintBottom_toTopOf="@+id/button_bike"
+        app:layout_constraintBottom_toTopOf="@+id/button_car"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_action_bus" />
 
@@ -170,7 +170,7 @@
         android:layout_marginStart="15dp"
         android:clickable="true"
         app:fabSize="mini"
-        app:layout_constraintBottom_toTopOf="@+id/button_train"
+        app:layout_constraintBottom_toTopOf="@+id/button_bike"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_action_car" />
 
