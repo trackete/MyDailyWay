@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity
     public static boolean chooseBike;
     private boolean start;
 
-    //on Create:
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
